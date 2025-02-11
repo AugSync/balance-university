@@ -2,6 +2,9 @@
   "HomePage": {
     "description": "Accede a tus cursos, calificaciones y recursos educativos en un solo lugar. ¡Comienza tu viaje de aprendizaje hoy!",
     "login": "Iniciar Sesión",
-    "university": "Universidad"
+    "university": "Universidad",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "back": "Volver"
   }
 } 

@@ -6,10 +6,36 @@ import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern"
 import { SparklesText } from "@/components/magicui/sparkles-text";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
 import { useTranslations, useLocale } from "next-intl";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { useRouter } from "next/navigation";
+import { LoginForm } from "@/components/auth/login-form";
 
 export default function HomePage() {
   const t = useTranslations("HomePage");
   const locale = useLocale();
+  const [showLogin, setShowLogin] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handleLoginClick = () => {
+    if (isMobile) {
+      router.push("/login");
+    } else {
+      setShowLogin(true);
+    }
+  };
 
   return (
     <div className="relative flex min-h-[100vh] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background">
@@ -24,36 +50,78 @@ export default function HomePage() {
         )}
       />
 
-      <div className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 text-center sm:px-8">
-        <div className="relative w-full max-w-[500px] transition-all duration-300">
-          <Image
-            src="/university.svg"
-            alt="Universidad"
-            width={500}
-            height={372}
-            className="drop-shadow-xl"
-            priority
-          />
-        </div>
+      <div className="relative z-10 flex w-full items-center justify-center px-4 sm:px-8">
+        <motion.div
+          className="flex flex-col items-center justify-center gap-8 text-center"
+          animate={{
+            x: showLogin ? "-60%" : "0%",
+            opacity: 1,
+          }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          <div className="relative w-full max-w-[500px] transition-all duration-300">
+            <Image
+              src="/university.svg"
+              alt="Universidad"
+              width={500}
+              height={372}
+              className="drop-shadow-xl"
+              priority
+            />
+          </div>
 
-        <div className="flex items-baseline gap-4 text-3xl sm:text-4xl md:text-5xl font-bold">
-          {locale === 'es' && <span className="text-foreground">{t("university")}</span>}
-          <SparklesText
-            text="Balance"
-            className="text-3xl sm:text-4xl md:text-5xl"
-            colors={{ first: "#4F46E5", second: "#EC4899" }}
-            sparklesCount={5}
-          />
-          {locale === 'en' && <span className="text-foreground">{t("university")}</span>}
-        </div>
+          <div className="flex items-baseline gap-4 text-3xl sm:text-4xl md:text-5xl font-bold">
+            {locale === "es" && (
+              <span className="text-foreground">{t("university")}</span>
+            )}
+            <SparklesText
+              text="Balance"
+              className="text-3xl sm:text-4xl md:text-5xl"
+              colors={{ first: "#4F46E5", second: "#EC4899" }}
+              sparklesCount={5}
+            />
+            {locale === "en" && (
+              <span className="text-foreground">{t("university")}</span>
+            )}
+          </div>
 
-        <p className="max-w-[600px] text-lg text-muted-foreground">
-          {t("description")}
-        </p>
+          <p className="max-w-[600px] text-lg text-muted-foreground">
+            {t("description")}
+          </p>
 
-        <RainbowButton onClick={() => (window.location.href = "/dashboard")}>
-          {t("login")}
-        </RainbowButton>
+          <motion.div
+            className="h-[40px] flex items-center justify-center"
+            animate={{
+              opacity: showLogin ? 0 : 1,
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            <RainbowButton
+              onClick={handleLoginClick}
+              className={showLogin ? "pointer-events-none" : ""}
+            >
+              {t("login")}
+            </RainbowButton>
+          </motion.div>
+        </motion.div>
+
+        <AnimatePresence>
+          {showLogin && !isMobile && (
+            <motion.div
+              className="absolute left-[53%] w-full"
+              initial={{ x: "30%", opacity: 0 }}
+              animate={{ x: "0%", opacity: 1 }}
+              exit={{ x: "30%", opacity: 0 }}
+              transition={{ 
+                duration: 0.8,
+                ease: "easeInOut",
+                opacity: { duration: 0.5 }
+              }}
+            >
+              <LoginForm onBack={() => setShowLogin(false)} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

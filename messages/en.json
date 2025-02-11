@@ -2,6 +2,9 @@
   "HomePage": {
     "description": "Access your courses, grades, and educational resources all in one place. Start your learning journey today!",
     "login": "Login",
-    "university": "University"
+    "university": "University",
+    "email": "Email",
+    "password": "Password",
+    "back": "Go back"
   }
 }
