@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export default function DashboardPage() {
   const t = useTranslations("Dashboard");
@@ -40,11 +41,34 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
+    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">{t("title")}</h2>
-          <div className="flex items-center space-x-4">
+        <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col space-y-4 md:space-y-0">
+            <div className="flex items-center justify-between md:justify-start">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{t("title")}</h2>
+              <div className="flex md:hidden items-center">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="cursor-pointer">
+                    <Avatar>
+                      <AvatarImage src="/avatars/admin.jpg" alt={t("admin")} />
+                      <AvatarFallback>AD</AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      {t("logout")}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
+            <div className="md:hidden w-full">
+              <CalendarDateRangePicker />
+            </div>
+          </div>
+          <div className="hidden md:flex items-center justify-end space-x-4">
             <CalendarDateRangePicker />
             <DropdownMenu>
               <DropdownMenuTrigger className="cursor-pointer">
@@ -63,81 +87,84 @@ export default function DashboardPage() {
           </div>
         </div>
         <Tabs defaultValue="mathematics" className="space-y-4">
-          <div className=" max-w-3xl">
-            <TabsList className="grid w-full grid-cols-5">
-              {careers.map((career) => (
-                <TabsTrigger 
-                  key={career.id} 
-                  value={career.id}
-                  className="text-sm"
-                >
-                  {career.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
+          <ScrollArea className="w-full whitespace-nowrap mt-4">
+            <div className="max-w-full">
+              <TabsList className="inline-flex w-full md:w-auto min-w-full md:min-w-[600px]">
+                {careers.map((career) => (
+                  <TabsTrigger 
+                    key={career.id} 
+                    value={career.id}
+                    className="flex-1 text-xs md:text-sm px-2 md:px-4"
+                  >
+                    {career.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
           {careers.map((career) => (
             <TabsContent key={career.id} value={career.id} className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <div className="grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
+                    <CardTitle className="text-xs md:text-sm font-medium">
                       {t("stats.totalStudents")}
                     </CardTitle>
                     <UserIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">2,350</div>
-                    <p className="text-xs text-muted-foreground">
+                    <div className="text-xl md:text-2xl font-bold">2,350</div>
+                    <p className="text-[10px] md:text-xs text-muted-foreground">
                       {t("stats.totalStudentsChange")}
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
+                    <CardTitle className="text-xs md:text-sm font-medium">
                       {t("stats.activeStudents")}
                     </CardTitle>
                     <UsersIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">573</div>
-                    <p className="text-xs text-muted-foreground">
+                    <div className="text-xl md:text-2xl font-bold">573</div>
+                    <p className="text-[10px] md:text-xs text-muted-foreground">
                       {t("stats.activeStudentsChange")}
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
+                    <CardTitle className="text-xs md:text-sm font-medium">
                       {t("stats.onlineMode")}
                     </CardTitle>
                     <GlobeIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">1,234</div>
-                    <p className="text-xs text-muted-foreground">
+                    <div className="text-xl md:text-2xl font-bold">1,234</div>
+                    <p className="text-[10px] md:text-xs text-muted-foreground">
                       {t("stats.onlineModeChange")}
                     </p>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
+                    <CardTitle className="text-xs md:text-sm font-medium">
                       {t("stats.inPersonMode")}
                     </CardTitle>
                     <SchoolIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">1,116</div>
-                    <p className="text-xs text-muted-foreground">
+                    <div className="text-xl md:text-2xl font-bold">1,116</div>
+                    <p className="text-[10px] md:text-xs text-muted-foreground">
                       {t("stats.inPersonModeChange")}
                     </p>
                   </CardContent>
                 </Card>
               </div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4">
+              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
+                <Card className="col-span-1 md:col-span-4">
                   <CardHeader>
                     <CardTitle>{t("overview")}</CardTitle>
                   </CardHeader>
@@ -145,7 +172,7 @@ export default function DashboardPage() {
                     <Overview />
                   </CardContent>
                 </Card>
-                <Card className="col-span-3">
+                <Card className="col-span-1 md:col-span-3">
                   <CardHeader>
                     <CardTitle>{t("recentStudents.title")}</CardTitle>
                     <CardDescription>
