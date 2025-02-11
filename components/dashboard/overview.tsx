@@ -36,7 +36,7 @@ export function Overview({ career }: OverviewProps) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center w-full h-[350px]">
-        <div className="w-full h-[350px]">
+        <div className="w-full h-[390px]">
           <Skeleton className="w-full h-full rounded-lg ml-2" />
         </div>
       </div>
