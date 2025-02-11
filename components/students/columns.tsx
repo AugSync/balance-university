@@ -61,7 +61,7 @@ export const Columns = ({
     {
       accessorKey: "lastName",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Apellido" />
+        <DataTableColumnHeader column={column} title={t("columns.lastName")} />
       ),
       cell: ({ row }) => {
         return (
@@ -80,7 +80,7 @@ export const Columns = ({
     {
       accessorKey: "identificationNumber",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Identificación" />
+        <DataTableColumnHeader column={column} title={t("columns.identification")} />
       ),
       cell: ({ row }) => {
         return (
@@ -99,7 +99,7 @@ export const Columns = ({
     {
       accessorKey: "gender",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Género" />
+        <DataTableColumnHeader column={column} title={t("columns.gender")} />
       ),
       cell: ({ row }) => {
         const gender = row.getValue("gender") as string;
@@ -111,7 +111,7 @@ export const Columns = ({
               onDetails(row.original)
             }}
           >
-            {gender === 'male' ? 'Masculino' : 'Femenino'}
+            {t(`gender.${gender}`)}
           </div>
         );
       },
@@ -119,7 +119,7 @@ export const Columns = ({
     {
       accessorKey: "birthDate",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Fecha de Nacimiento" />
+        <DataTableColumnHeader column={column} title={t("columns.birthDate")} />
       ),
       cell: ({ row }) => {
         const date = row.getValue("birthDate") as Date;
@@ -139,7 +139,7 @@ export const Columns = ({
     {
       accessorKey: "city",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Ciudad" />
+        <DataTableColumnHeader column={column} title={t("columns.city")} />
       ),
       cell: ({ row }) => {
         return (
@@ -158,7 +158,7 @@ export const Columns = ({
     {
       accessorKey: "email",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Email" />
+        <DataTableColumnHeader column={column} title={t("columns.email")} />
       ),
       cell: ({ row }) => {
         return (
@@ -177,7 +177,7 @@ export const Columns = ({
     {
       accessorKey: "mobileNumber",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Teléfono" />
+        <DataTableColumnHeader column={column} title={t("columns.phone")} />
       ),
       cell: ({ row }) => {
         return (
@@ -196,17 +196,10 @@ export const Columns = ({
     {
       accessorKey: "studyBranch",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title={t("studyBranch")} />
+        <DataTableColumnHeader column={column} title={t("columns.studyBranch")} />
       ),
       cell: ({ row }) => {
         const studyBranch = row.getValue("studyBranch") as string;
-        const branchMap: Record<string, string> = {
-          mathematics: "Matemáticas",
-          social_sciences: "Ciencias Sociales",
-          engineering: "Ingeniería",
-          fashion: "Moda",
-          audiovisual_arts: "Artes Audiovisuales",
-        };
         return (
           <div 
             className="capitalize cursor-pointer hover:text-primary"
@@ -215,7 +208,7 @@ export const Columns = ({
               onDetails(row.original)
             }}
           >
-            {branchMap[studyBranch] || studyBranch}
+            {t(`studyBranches.${studyBranch}`)}
           </div>
         );
       },
@@ -239,7 +232,7 @@ export const Columns = ({
             }}
           >
             <Badge variant="outline" className="capitalize">
-              {modality === 'online' ? 'En línea' : 'Presencial'}
+              {t(`modalities.${modality}`)}
             </Badge>
           </div>
         );
@@ -251,7 +244,7 @@ export const Columns = ({
     {
       accessorKey: "status",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title={t("status")} />
+        <DataTableColumnHeader column={column} title={t("columns.status")} />
       ),
       cell: ({ row }) => {
         const status = row.getValue("status") as string;
@@ -267,7 +260,7 @@ export const Columns = ({
               className="capitalize"
               variant={status === "active" ? "default" : "secondary"}
             >
-              {status === 'active' ? 'Activo' : 'Inactivo'}
+              {t(`statuses.${status}`)}
             </Badge>
           </div>
         );

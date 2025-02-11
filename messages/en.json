@@ -109,10 +109,10 @@
     },
     "studyBranches": {
       "mathematics": "Mathematics",
-      "socialSciences": "Social Sciences",
+      "social_sciences": "Social Sciences",
       "engineering": "Engineering",
       "fashion": "Fashion",
-      "audiovisualArts": "Audiovisual Arts"
+      "audiovisual_arts": "Audiovisual Arts"
     },
     "modalities": {
       "online": "Online",
@@ -121,6 +121,27 @@
     "statuses": {
       "active": "Active",
       "inactive": "Inactive"
+    },
+    "columns": {
+      "lastName": "Last Name",
+      "identification": "Identification",
+      "gender": "Gender",
+      "birthDate": "Birth Date",
+      "city": "City",
+      "email": "Email",
+      "phone": "Phone",
+      "studyBranch": "Study Branch",
+      "modality": "Modality",
+      "status": "Status"
+    },
+    "pagination": {
+      "rowsSelected": "{count} of {total} row(s) selected.",
+      "rowsPerPage": "Rows per page",
+      "page": "Page {current} of {total}",
+      "goToFirstPage": "Go to first page",
+      "goToPreviousPage": "Go to previous page",
+      "goToNextPage": "Go to next page",
+      "goToLastPage": "Go to last page"
     }
   }
 }

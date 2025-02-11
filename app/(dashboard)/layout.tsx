@@ -13,6 +13,7 @@ import { LogOut } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Toaster } from "sonner";
+import { LanguageSelector } from "@/components/language-selector";
 
 export default function DashboardLayout({
   children,
@@ -38,20 +39,23 @@ export default function DashboardLayout({
           <MobileSidebar />
           <div className="flex w-full justify-between">
             <div />
-            <DropdownMenu>
-              <DropdownMenuTrigger className="cursor-pointer">
-                <Avatar>
-                  <AvatarImage src="/avatars/admin.jpg" alt={t("admin")} />
-                  <AvatarFallback>AD</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleLogout} className="text-destructive">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  {t("logout")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex items-center gap-4">
+              <LanguageSelector />
+              <DropdownMenu>
+                <DropdownMenuTrigger className="cursor-pointer">
+                  <Avatar>
+                    <AvatarImage src="/avatars/admin.jpg" alt={t("admin")} />
+                    <AvatarFallback>AD</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    {t("logout")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </div>
       </div>

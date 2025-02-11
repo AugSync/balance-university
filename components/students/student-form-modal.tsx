@@ -255,10 +255,10 @@ export function StudentFormModal({
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="mathematics">{t("studyBranches.mathematics")}</SelectItem>
-                        <SelectItem value="social_sciences">{t("studyBranches.socialSciences")}</SelectItem>
+                        <SelectItem value="social_sciences">{t("studyBranches.social_sciences")}</SelectItem>
                         <SelectItem value="engineering">{t("studyBranches.engineering")}</SelectItem>
                         <SelectItem value="fashion">{t("studyBranches.fashion")}</SelectItem>
-                        <SelectItem value="audiovisual_arts">{t("studyBranches.audiovisualArts")}</SelectItem>
+                        <SelectItem value="audiovisual_arts">{t("studyBranches.audiovisual_arts")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
