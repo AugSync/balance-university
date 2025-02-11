@@ -13,7 +13,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Constants
-const TOTAL_STUDENTS = 30;
+const TOTAL_STUDENTS = 300;
 
 const firstNames = [
   "Juan",
@@ -121,9 +121,9 @@ function generateRandomStudent() {
   const lastName = getRandomElement(lastNames);
   const normalizedFirstName = removeAccents(firstName.toLowerCase());
   const normalizedLastName = removeAccents(lastName.toLowerCase());
-  const email = `${normalizedFirstName}.${normalizedLastName}${Math.floor(
-    Math.random() * 100
-  )}@example.com`;
+  const timestamp = Date.now();
+  const randomNum = Math.floor(Math.random() * 10000); // Número aleatorio de 0 a 9999
+  const email = `${normalizedFirstName}.${normalizedLastName}.${timestamp}.${randomNum}@example.com`;
   const birthDate = generateRandomDate(
     new Date(1990, 0, 1),
     new Date(2005, 11, 31)

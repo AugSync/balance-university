@@ -10,14 +10,16 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RecentStudents } from "@/components/dashboard/recent-students";
 import { Overview } from "@/components/dashboard/overview";
-import { UserIcon, UsersIcon } from "lucide-react";
 import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker";
+import { StatsCards } from "@/components/dashboard/stats-cards";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function DashboardPage() {
   const t = useTranslations("Dashboard");
   const router = useRouter();
+  const [selectedCareer, setSelectedCareer] = useState("mathematics");
 
   const careers = [
     { id: "mathematics", label: t("careers.mathematics") },
@@ -48,7 +50,11 @@ export default function DashboardPage() {
             <CalendarDateRangePicker />
           </div>
         </div>
-        <Tabs defaultValue="mathematics" className="flex-1 flex flex-col mt-4 w-full">
+        <Tabs 
+          defaultValue="mathematics" 
+          className="flex-1 flex flex-col mt-4 w-full"
+          onValueChange={setSelectedCareer}
+        >
           <div className="w-full overflow-x-auto md:overflow-x-visible">
             <TabsList className="w-full md:w-auto min-w-max md:min-w-0 inline-flex">
               {careers.map((career) => (
@@ -66,42 +72,13 @@ export default function DashboardPage() {
             <TabsContent key={career.id} value={career.id} className="flex-1 space-y-4 my-4">
               <div className="grid gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-7 h-full w-full">
                 <div className="col-span-1 lg:col-span-4 flex flex-col space-y-4">
-                  <div className="grid gap-4 grid-cols-2">
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-xs md:text-sm font-medium">
-                          {t("stats.totalStudents")}
-                        </CardTitle>
-                        <UserIcon className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-xl md:text-2xl font-bold">2,350</div>
-                        <p className="text-[10px] md:text-xs text-muted-foreground">
-                          {t("stats.totalStudentsChange")}
-                        </p>
-                      </CardContent>
-                    </Card>
-                    <Card>
-                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-xs md:text-sm font-medium">
-                          {t("stats.activeStudents")}
-                        </CardTitle>
-                        <UsersIcon className="h-4 w-4 text-muted-foreground" />
-                      </CardHeader>
-                      <CardContent>
-                        <div className="text-xl md:text-2xl font-bold">573</div>
-                        <p className="text-[10px] md:text-xs text-muted-foreground">
-                          {t("stats.activeStudentsChange")}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
+                  <StatsCards />
                   <Card className="flex-1">
                     <CardHeader>
-                      <CardTitle>{t("overview")}</CardTitle>
+                      <CardTitle>{t("overview")} - {career.label}</CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
-                      <Overview />
+                      <Overview career={selectedCareer} />
                     </CardContent>
                   </Card>
                 </div>
