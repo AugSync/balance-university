@@ -4,7 +4,6 @@ import { Columns } from "@/components/students/columns";
 import { DataTable } from "@/components/students/data-table";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { students } from "@/mocks/students";
 import { useState } from "react";
 import { Student } from "@/types/student";
 import { StudentDetailsModal } from "@/components/students/student-details-modal";
@@ -66,14 +65,15 @@ export default function StudentsPage() {
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          <Button onClick={() => setIsFormModalOpen(true)}>
-            <Plus className="mr-2 h-4 w-4" /> {t("addStudent")}
+          <Button onClick={() => setIsFormModalOpen(true)} className="h-9 px-2 lg:px-4">
+            <Plus className="h-4 w-4 md:mr-2" />
+            <span className="hidden md:inline">{t("addStudent")}</span>
           </Button>
         </div>
       </div>
       <DataTable
         columns={columns}
-        data={students}
+        data={[]}
         onBulkDelete={handleBulkDeleteStudents}
       />
 

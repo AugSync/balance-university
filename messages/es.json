@@ -38,7 +38,7 @@
     "overview": "Resumen",
     "recentStudents": {
       "title": "Estudiantes Recientes",
-      "description": "Tienes 265 estudiantes."
+      "description": "Tienes {total} estudiantes."
     }
   },
   "students": {

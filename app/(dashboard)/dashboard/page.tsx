@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RecentStudents } from "@/components/dashboard/recent-students";
+import { RecentStudentsDescription } from "@/components/dashboard/recent-students-description";
 import { Overview } from "@/components/dashboard/overview";
-import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -37,18 +37,8 @@ export default function DashboardPage() {
   return (
     <div className="flex-1 flex flex-col min-h-[calc(100vh-2rem)] p-4 md:p-8 pt-6 w-full">
       <div className="w-full flex-1">
-        <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-col space-y-4 md:space-y-0">
-            <div className="flex items-center justify-between md:justify-start">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{t("title")}</h2>
-            </div>
-            <div className="md:hidden w-full">
-              <CalendarDateRangePicker />
-            </div>
-          </div>
-          <div className="hidden md:flex items-center justify-end space-x-4">
-            <CalendarDateRangePicker />
-          </div>
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{t("title")}</h2>
         </div>
         <Tabs 
           defaultValue="mathematics" 
@@ -86,7 +76,7 @@ export default function DashboardPage() {
                   <CardHeader>
                     <CardTitle>{t("recentStudents.title")}</CardTitle>
                     <CardDescription>
-                      {t("recentStudents.description")}
+                      <RecentStudentsDescription />
                     </CardDescription>
                   </CardHeader>
                   <CardContent>

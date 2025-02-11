@@ -21,7 +21,7 @@
     "overview": "Overview",
     "recentStudents": {
       "title": "Recent Students",
-      "description": "You have 265 students."
+      "description": "You have {total} students."
     },
     "stats": {
       "totalStudents": "Total Students",

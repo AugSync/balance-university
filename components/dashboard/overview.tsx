@@ -35,8 +35,10 @@ export function Overview({ career }: OverviewProps) {
 
   if (isLoading) {
     return (
-      <div className="h-[350px] flex items-center justify-center">
-        <Skeleton className="w-full h-full" />
+      <div className="flex items-center justify-center w-full h-[350px]">
+        <div className="w-full h-[350px]">
+          <Skeleton className="w-full h-full rounded-lg ml-2" />
+        </div>
       </div>
     );
   }
