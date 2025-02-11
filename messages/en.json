@@ -80,7 +80,7 @@
     "modality": "Modality",
     "modalities": {
       "online": "Online",
-      "inPerson": "In Person"
+      "in_person": "In Person"
     },
     "status": "Status",
     "statuses": {
