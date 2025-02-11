@@ -164,6 +164,8 @@
     "no_results": "No se encontraron estudiantes",
     "previous": "Anterior",
     "next": "Siguiente",
-    "showing_results": "Mostrando {from} a {to} de {total} resultados"
+    "showing_results": "Mostrando {from} a {to} de {total} resultados",
+    "selected": "seleccionados",
+    "clearFilters": "Limpiar filtros"
   }
 } 

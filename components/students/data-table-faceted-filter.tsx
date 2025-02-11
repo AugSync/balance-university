@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { Check, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -39,6 +40,25 @@ export function DataTableFacetedFilter({
   value = [],
   onChange,
 }: DataTableFacetedFilterProps) {
+  const t = useTranslations();
+
+  const getTranslatedLabel = (label: string, value: string) => {
+    // Diccionario de traducciones basado en el valor
+    const translationMap: Record<string, string> = {
+      'mathematics': t('students.studyBranches.mathematics'),
+      'social_sciences': t('students.studyBranches.social_sciences'),
+      'engineering': t('students.studyBranches.engineering'),
+      'fashion': t('students.studyBranches.fashion'),
+      'audiovisual_arts': t('students.studyBranches.audiovisual_arts'),
+      'online': t('students.modalities.online'),
+      'in_person': t('students.modalities.in_person'),
+      'active': t('students.statuses.active'),
+      'inactive': t('students.statuses.inactive'),
+    };
+
+    return translationMap[value] || label;
+  };
+
   const [selectedValues, setSelectedValues] = React.useState<string[]>(value);
   const [open, setOpen] = React.useState(false);
 
@@ -76,7 +96,7 @@ export function DataTableFacetedFilter({
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.length} selected
+                    {selectedValues.length} {t('students.selected')}
                   </Badge>
                 ) : (
                   options
@@ -87,7 +107,7 @@ export function DataTableFacetedFilter({
                         key={option.value}
                         className="rounded-sm px-1 font-normal"
                       >
-                        {option.label}
+                        {getTranslatedLabel(option.label, option.value)}
                       </Badge>
                     ))
                 )}
@@ -100,7 +120,7 @@ export function DataTableFacetedFilter({
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>{t('students.no_results')}</CommandEmpty>
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.includes(option.value);
@@ -122,7 +142,7 @@ export function DataTableFacetedFilter({
                     {option.icon && (
                       <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />
                     )}
-                    <span>{option.label}</span>
+                    <span>{getTranslatedLabel(option.label, option.value)}</span>
                   </CommandItem>
                 );
               })}
@@ -138,7 +158,7 @@ export function DataTableFacetedFilter({
                     }}
                     className="justify-center text-center"
                   >
-                    Clear filters
+                    {t('students.clearFilters')}
                   </CommandItem>
                 </CommandGroup>
               </>

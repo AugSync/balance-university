@@ -164,6 +164,8 @@
     "no_results": "No students found",
     "previous": "Previous",
     "next": "Next",
-    "showing_results": "Showing {from} to {to} of {total} results"
+    "showing_results": "Showing {from} to {to} of {total} results",
+    "selected": "selected",
+    "clearFilters": "Clear filters"
   }
 }
