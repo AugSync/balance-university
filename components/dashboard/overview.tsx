@@ -44,7 +44,7 @@ export function Overview({ career }: OverviewProps) {
   }
 
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <ResponsiveContainer width="100%" height={390}>
       <BarChart data={data}>
         <XAxis
           dataKey="month"
