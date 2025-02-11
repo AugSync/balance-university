@@ -10,6 +10,10 @@
     "emailError": "Please enter a valid email address",
     "passwordError": "Password must be at least 6 characters"
   },
+  "Navigation": {
+    "dashboard": "Dashboard",
+    "students": "Students"
+  },
   "Dashboard": {
     "title": "Dashboard",
     "admin": "Administrator",

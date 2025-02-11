@@ -10,6 +10,10 @@
     "emailError": "Por favor ingresa un correo electrónico válido",
     "passwordError": "La contraseña debe tener al menos 6 caracteres"
   },
+  "Navigation": {
+    "dashboard": "Panel de Control",
+    "students": "Estudiantes"
+  },
   "Dashboard": {
     "title": "Panel de Control",
     "admin": "Administrador",

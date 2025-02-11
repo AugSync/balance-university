@@ -10,7 +10,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RecentStudents } from "@/components/dashboard/recent-students";
 import { Overview } from "@/components/dashboard/overview";
-import { SchoolIcon, GlobeIcon, UserIcon, UsersIcon, LogOut } from "lucide-react";
+import { UserIcon, UsersIcon, LogOut } from "lucide-react";
 import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker";
 import { useTranslations } from "next-intl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -47,22 +47,6 @@ export default function DashboardPage() {
           <div className="flex flex-col space-y-4 md:space-y-0">
             <div className="flex items-center justify-between md:justify-start">
               <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{t("title")}</h2>
-              <div className="flex md:hidden items-center">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="cursor-pointer">
-                    <Avatar>
-                      <AvatarImage src="/avatars/admin.jpg" alt={t("admin")} />
-                      <AvatarFallback>AD</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={handleLogout} className="text-destructive">
-                      <LogOut className="mr-2 h-4 w-4" />
-                      {t("logout")}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
             </div>
             <div className="md:hidden w-full">
               <CalendarDateRangePicker />
@@ -70,20 +54,6 @@ export default function DashboardPage() {
           </div>
           <div className="hidden md:flex items-center justify-end space-x-4">
             <CalendarDateRangePicker />
-            <DropdownMenu>
-              <DropdownMenuTrigger className="cursor-pointer">
-                <Avatar>
-                  <AvatarImage src="/avatars/admin.jpg" alt={t("admin")} />
-                  <AvatarFallback>AD</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={handleLogout} className="text-destructive">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  {t("logout")}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </div>
         <Tabs defaultValue="mathematics" className="flex-1 flex flex-col mt-4">
@@ -104,7 +74,7 @@ export default function DashboardPage() {
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
           {careers.map((career) => (
-            <TabsContent key={career.id} value={career.id} className="flex-1 space-y-4 mt-4">
+            <TabsContent key={career.id} value={career.id} className="flex-1 space-y-4 my-4">
               <div className="grid gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-7 h-full">
                 <div className="col-span-1 lg:col-span-4 flex flex-col space-y-4">
                   <div className="grid gap-4 grid-cols-2">
@@ -164,4 +134,4 @@ export default function DashboardPage() {
       </div>
     </div>
   );
-}
+} 
