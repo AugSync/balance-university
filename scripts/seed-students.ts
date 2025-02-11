@@ -84,6 +84,18 @@ function generateRandomDate(start: Date, end: Date): Date {
   );
 }
 
+// Function to generate creation date within the specified range
+function generateCreatedAtDate(): Date {
+  const startDate = new Date('2024-03-01');
+  const endDate = new Date('2025-03-01');
+  const today = new Date();
+  
+  // Use the earliest date between March 2025 and today
+  const effectiveEndDate = endDate < today ? endDate : today;
+  
+  return generateRandomDate(startDate, effectiveEndDate);
+}
+
 function generateRandomPhone(): string {
   return `3${Math.floor(Math.random() * 10)}${Math.floor(
     Math.random() * 10
@@ -116,6 +128,7 @@ function generateRandomStudent() {
     new Date(1990, 0, 1),
     new Date(2005, 11, 31)
   );
+  const createdAt = generateCreatedAtDate();
 
   return {
     first_name: firstName,
@@ -140,8 +153,8 @@ function generateRandomStudent() {
     ]),
     modality: getRandomElement(["online", "in_person"]),
     status: getRandomElement(["active", "inactive"]),
-    created_at: new Date(),
-    updated_at: new Date(),
+    created_at: createdAt,
+    updated_at: createdAt, // The update date will be set to the current date and time
   };
 }
 

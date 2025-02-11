@@ -46,7 +46,7 @@ export function DataTableToolbar<TData>({
   };
 
   return (
-    <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-2 md:mt-4">
+    <div className="flex flex-col space-y-4 mt-4 md:flex-row md:space-y-0 md:space-x-2">
       <div className="flex w-full flex-wrap gap-2 md:w-auto">
         <Input
           placeholder={t("filterStudents")}
