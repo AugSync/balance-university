@@ -72,6 +72,8 @@
       "createDescription": "Agregar un nuevo estudiante al sistema",
       "editDescription": "Modificar información del estudiante",
       "create": "Crear",
+      "creating": "Creando...",
+      "saving": "Guardando...",
       "saveChanges": "Guardar Cambios",
       "selectStudyBranch": "Seleccionar rama de estudio",
       "selectModality": "Seleccionar modalidad",

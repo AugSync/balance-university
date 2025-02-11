@@ -30,14 +30,16 @@ import {
   SelectValue,
 } from "../ui/select";
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "../ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import * as React from "react";
+import { Spinner } from "@/components/ui/spinner";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { es } from "date-fns/locale";
 
 interface StudentFormModalProps {
   student?: Student;
@@ -53,45 +55,51 @@ export function StudentFormModal({
   const t = useTranslations("students");
   const queryClient = useQueryClient();
 
+  const defaultValues = {
+    first_name: "",
+    last_name: "",
+    identification_number: "",
+    gender: "male" as const,
+    birth_date: new Date("1999-01-01").toISOString(),
+    email: "",
+    mobile_number: "",
+    city: "",
+    address: "",
+    study_branch: "mathematics" as const,
+    modality: "online" as const,
+    status: "active" as const,
+  };
+
   const form = useForm<z.infer<typeof studentSchema>>({
     resolver: zodResolver(
       studentSchema.omit({ id: true, created_at: true, updated_at: true })
     ),
-    defaultValues: {
-      first_name: "",
-      last_name: "",
-      identification_number: "",
-      gender: "male",
-      birth_date: new Date().toISOString(),
-      email: "",
-      mobile_number: "",
-      city: "",
-      address: "",
-      study_branch: "mathematics",
-      modality: "online",
-      status: "active",
-    },
+    defaultValues,
   });
 
-  // Reset form when student prop changes
+  // Reset form when student prop changes or modal closes
   React.useEffect(() => {
-    if (student) {
-      form.reset({
-        first_name: student.first_name,
-        last_name: student.last_name,
-        identification_number: student.identification_number,
-        gender: student.gender,
-        birth_date: student.birth_date,
-        email: student.email,
-        mobile_number: student.mobile_number,
-        city: student.city,
-        address: student.address,
-        study_branch: student.study_branch,
-        modality: student.modality,
-        status: student.status,
-      });
+    if (open) {
+      if (student) {
+        form.reset({
+          first_name: student.first_name,
+          last_name: student.last_name,
+          identification_number: student.identification_number,
+          gender: student.gender,
+          birth_date: student.birth_date,
+          email: student.email,
+          mobile_number: student.mobile_number,
+          city: student.city,
+          address: student.address,
+          study_branch: student.study_branch,
+          modality: student.modality,
+          status: student.status,
+        });
+      } else {
+        form.reset(defaultValues);
+      }
     }
-  }, [student, form]);
+  }, [student, open, form]);
 
   const createMutation = useMutation({
     mutationFn: async (data: z.infer<typeof studentSchema>) => {
@@ -109,8 +117,8 @@ export function StudentFormModal({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["students"] });
       toast.success(t("notifications.createSuccess"));
+      form.reset(defaultValues);
       onClose();
-      form.reset();
     },
     onError: (error) => {
       toast.error(error.message || t("notifications.createError"));
@@ -133,8 +141,8 @@ export function StudentFormModal({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["students"] });
       toast.success(t("notifications.updateSuccess"));
+      form.reset(defaultValues);
       onClose();
-      form.reset();
     },
     onError: (error) => {
       toast.error(error.message || t("notifications.updateError"));
@@ -149,8 +157,16 @@ export function StudentFormModal({
     }
   };
 
+  // Handle modal close
+  const handleClose = () => {
+    form.reset(defaultValues);
+    createMutation.reset();
+    updateMutation.reset();
+    onClose();
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>
@@ -220,24 +236,27 @@ export function StudentFormModal({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t("details.gender")}</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger>
                           <SelectValue
                             placeholder={t("form.placeholders.gender")}
                           />
                         </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="male">{t("gender.male")}</SelectItem>
-                        <SelectItem value="female">
-                          {t("gender.female")}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                        <SelectContent>
+                          <SelectItem value="male">
+                            {t("gender.male")}
+                          </SelectItem>
+                          <SelectItem value="female">
+                            {t("gender.female")}
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -246,43 +265,31 @@ export function StudentFormModal({
                 control={form.control}
                 name="birth_date"
                 render={({ field }) => (
-                  <FormItem className="flex flex-col">
+                  <FormItem className="flex flex-col mt-2">
                     <FormLabel>{t("details.birthDate")}</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-full pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(new Date(field.value), "PPP")
-                            ) : (
-                              <span>{t("form.placeholders.birthDate")}</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={
-                            field.value ? new Date(field.value) : undefined
-                          }
-                          onSelect={(date) =>
-                            field.onChange(date?.toISOString())
-                          }
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
+                    <FormControl>
+                      <div className="relative w-full">
+                        <DatePicker
+                          selected={field.value ? new Date(field.value) : null}
+                          onChange={(date: Date) => field.onChange(date?.toISOString())}
+                          dateFormat="PPP"
+                          locale={es}
+                          showMonthDropdown
+                          showYearDropdown
+                          dropdownMode="select"
+                          yearDropdownItemNumber={100}
+                          scrollableYearDropdown
+                          minDate={new Date("1900-01-01")}
+                          maxDate={new Date()}
+                          placeholderText={t("form.placeholders.birthDate")}
+                          className={cn(
+                            "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+                            !field.value && "text-muted-foreground"
+                          )}
                         />
-                      </PopoverContent>
-                    </Popover>
+                        <CalendarIcon className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 opacity-50" />
+                      </div>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -358,35 +365,36 @@ export function StudentFormModal({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t("studyBranch")}</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger>
                           <SelectValue
                             placeholder={t("form.placeholders.studyBranch")}
                           />
                         </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="mathematics">
-                          {t("studyBranches.mathematics")}
-                        </SelectItem>
-                        <SelectItem value="social_sciences">
-                          {t("studyBranches.social_sciences")}
-                        </SelectItem>
-                        <SelectItem value="engineering">
-                          {t("studyBranches.engineering")}
-                        </SelectItem>
-                        <SelectItem value="fashion">
-                          {t("studyBranches.fashion")}
-                        </SelectItem>
-                        <SelectItem value="audiovisual_arts">
-                          {t("studyBranches.audiovisual_arts")}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                        <SelectContent>
+                          <SelectItem value="mathematics">
+                            {t("studyBranches.mathematics")}
+                          </SelectItem>
+                          <SelectItem value="social_sciences">
+                            {t("studyBranches.social_sciences")}
+                          </SelectItem>
+                          <SelectItem value="engineering">
+                            {t("studyBranches.engineering")}
+                          </SelectItem>
+                          <SelectItem value="fashion">
+                            {t("studyBranches.fashion")}
+                          </SelectItem>
+                          <SelectItem value="audiovisual_arts">
+                            {t("studyBranches.audiovisual_arts")}
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -397,26 +405,27 @@ export function StudentFormModal({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t("modality")}</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger>
                           <SelectValue
                             placeholder={t("form.placeholders.modality")}
                           />
                         </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="online">
-                          {t("modalities.online")}
-                        </SelectItem>
-                        <SelectItem value="in_person">
-                          {t("modalities.inPerson")}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                        <SelectContent>
+                          <SelectItem value="online">
+                            {t("modalities.online")}
+                          </SelectItem>
+                          <SelectItem value="in_person">
+                            {t("modalities.inPerson")}
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -427,34 +436,48 @@ export function StudentFormModal({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t("status")}</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger>
                           <SelectValue
                             placeholder={t("form.placeholders.status")}
                           />
                         </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="active">
-                          {t("statuses.active")}
-                        </SelectItem>
-                        <SelectItem value="inactive">
-                          {t("statuses.inactive")}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
+                        <SelectContent>
+                          <SelectItem value="active">
+                            {t("statuses.active")}
+                          </SelectItem>
+                          <SelectItem value="inactive">
+                            {t("statuses.inactive")}
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
             <DialogFooter>
-              <Button type="submit">
-                {student ? t("form.saveChanges") : t("form.create")}
+              <Button
+                type="submit"
+                disabled={createMutation.isPending || updateMutation.isPending}
+                className="gap-2"
+              >
+                {(createMutation.isPending || updateMutation.isPending) && (
+                  <Spinner size={16} className="text-white" />
+                )}
+                {createMutation.isPending || updateMutation.isPending
+                  ? student
+                    ? t("form.saving")
+                    : t("form.creating")
+                  : student
+                  ? t("form.saveChanges")
+                  : t("form.create")}
               </Button>
             </DialogFooter>
           </form>

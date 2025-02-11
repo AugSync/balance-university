@@ -96,10 +96,20 @@ function generateRandomPhone(): string {
   )}${Math.floor(Math.random() * 10)}`;
 }
 
+// Function to remove accents and special characters
+function removeAccents(str: string): string {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9]/g, '');
+}
+
 function generateRandomStudent() {
   const firstName = getRandomElement(firstNames);
   const lastName = getRandomElement(lastNames);
-  const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(
+  const normalizedFirstName = removeAccents(firstName.toLowerCase());
+  const normalizedLastName = removeAccents(lastName.toLowerCase());
+  const email = `${normalizedFirstName}.${normalizedLastName}${Math.floor(
     Math.random() * 100
   )}@example.com`;
   const birthDate = generateRandomDate(

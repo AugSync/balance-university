@@ -72,6 +72,8 @@
       "createDescription": "Add a new student to the system",
       "editDescription": "Modify student information",
       "create": "Create",
+      "creating": "Creating...",
+      "saving": "Saving...",
       "saveChanges": "Save Changes",
       "selectStudyBranch": "Select study branch",
       "selectModality": "Select modality",

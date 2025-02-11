@@ -80,3 +80,95 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* React Datepicker Custom Styles */
+.react-datepicker-wrapper {
+  @apply w-full;
+}
+
+.react-datepicker {
+  @apply bg-popover border border-border rounded-md shadow-md font-sans !important;
+}
+
+.react-datepicker__header {
+  @apply bg-muted border-b border-border !important;
+}
+
+.react-datepicker__current-month {
+  @apply text-foreground font-semibold !important;
+}
+
+.react-datepicker__day-name {
+  @apply text-muted-foreground !important;
+}
+
+.react-datepicker__day {
+  @apply text-foreground hover:bg-accent hover:text-accent-foreground rounded-md !important;
+}
+
+.react-datepicker__day--selected {
+  @apply bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  @apply bg-accent text-accent-foreground !important;
+}
+
+.react-datepicker__day--disabled {
+  @apply text-muted-foreground cursor-not-allowed hover:bg-transparent !important;
+}
+
+.react-datepicker__navigation {
+  @apply top-2 !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  @apply border-muted-foreground !important;
+}
+
+.react-datepicker__year-dropdown,
+.react-datepicker__month-dropdown {
+  @apply bg-popover border border-border rounded-md max-h-56 overflow-y-auto !important;
+}
+
+.react-datepicker__year-dropdown {
+  @apply w-20 !important;
+}
+
+.react-datepicker__month-dropdown {
+  @apply w-36 !important;
+}
+
+.react-datepicker__year-option,
+.react-datepicker__month-option {
+  @apply text-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer py-1.5 px-3 !important;
+}
+
+.react-datepicker__year-option--selected,
+.react-datepicker__month-option--selected {
+  @apply bg-primary text-primary-foreground !important;
+}
+
+.react-datepicker__triangle {
+  @apply hidden !important;
+}
+
+.react-datepicker__month-select,
+.react-datepicker__year-select {
+  @apply bg-transparent border border-input rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-ring !important;
+}
+
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow {
+  @apply border-muted-foreground !important;
+}
+
+.react-datepicker__year-read-view:hover .react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view:hover .react-datepicker__month-read-view--down-arrow {
+  @apply border-foreground !important;
+}
+
+.react-datepicker__month-read-view--selected-month,
+.react-datepicker__year-read-view--selected-year {
+  @apply text-foreground font-medium !important;
+}

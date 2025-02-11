@@ -53,8 +53,10 @@ export default function StudentsPage() {
     onDelete: openDeleteModal,
   });
 
+  console.log(selectedStudent);
+
   return (
-    <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
+    <div className="flex-1 flex flex-col min-h-[calc(100vh-2rem)] p-4 md:p-8 pt-6 w-full">
       <div className="flex items-center justify-between space-y-2">
         <div>
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{t("title")}</h2>
