@@ -87,6 +87,7 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
           error={form.formState.errors.email?.message}
           touched={form.formState.touchedFields.email}
           value={values.email}
+          maxLength={100}
           {...form.register("email")}
         />
         <FormInput
@@ -96,6 +97,7 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
           error={form.formState.errors.password?.message}
           touched={form.formState.touchedFields.password}
           value={values.password}
+          maxLength={50}
           {...form.register("password")}
         />
         <div className="mt-8" />

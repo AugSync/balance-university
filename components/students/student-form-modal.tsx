@@ -192,6 +192,7 @@ export function StudentFormModal({
                     <FormControl>
                       <Input
                         placeholder={t("form.placeholders.firstName")}
+                        maxLength={50}
                         {...field}
                       />
                     </FormControl>
@@ -208,6 +209,7 @@ export function StudentFormModal({
                     <FormControl>
                       <Input
                         placeholder={t("form.placeholders.lastName")}
+                        maxLength={50}
                         {...field}
                       />
                     </FormControl>
@@ -224,6 +226,7 @@ export function StudentFormModal({
                     <FormControl>
                       <Input
                         placeholder={t("form.placeholders.identification")}
+                        maxLength={20}
                         {...field}
                       />
                     </FormControl>
@@ -305,6 +308,7 @@ export function StudentFormModal({
                       <Input
                         type="email"
                         placeholder={t("form.placeholders.email")}
+                        maxLength={100}
                         {...field}
                       />
                     </FormControl>
@@ -321,6 +325,7 @@ export function StudentFormModal({
                     <FormControl>
                       <Input
                         placeholder={t("form.placeholders.phone")}
+                        maxLength={15}
                         {...field}
                       />
                     </FormControl>
@@ -337,6 +342,7 @@ export function StudentFormModal({
                     <FormControl>
                       <Input
                         placeholder={t("form.placeholders.city")}
+                        maxLength={50}
                         {...field}
                       />
                     </FormControl>
@@ -353,6 +359,7 @@ export function StudentFormModal({
                     <FormControl>
                       <Input
                         placeholder={t("form.placeholders.address")}
+                        maxLength={200}
                         {...field}
                       />
                     </FormControl>
