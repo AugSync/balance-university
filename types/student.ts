@@ -10,24 +10,24 @@ export type StudyBranch =
 export type Modality = "online" | "in_person";
 export type StudentStatus = "active" | "inactive";
 
-export const studentSchema = z.object({
+export const createStudentSchema = (t: any) => z.object({
   id: z.string(),
   // Basic Data
-  first_name: z.string().min(2, "First name must be at least 2 characters"),
-  last_name: z.string().min(2, "Last name must be at least 2 characters"),
+  first_name: z.string().min(2, t("validation.firstName")),
+  last_name: z.string().min(2, t("validation.lastName")),
   identification_number: z
     .string()
-    .min(5, "Identification number must be at least 5 characters"),
+    .min(5, t("validation.identification")),
   gender: z.enum(["male", "female"]),
   birth_date: z.string(),
 
   // Location and Contact
-  city: z.string().min(2, "City must be at least 2 characters"),
-  address: z.string().min(5, "Address must be at least 5 characters"),
+  city: z.string().min(2, t("validation.city")),
+  address: z.string().min(5, t("validation.address")),
   mobile_number: z
     .string()
-    .min(10, "Mobile number must be at least 10 characters"),
-  email: z.string().email("Invalid email address"),
+    .min(10, t("validation.mobileNumber")),
+  email: z.string().email(t("validation.email")),
 
   // Academic Info
   study_branch: z.enum([
@@ -41,6 +41,31 @@ export const studentSchema = z.object({
   status: z.enum(["active", "inactive"]),
 
   // Metadata
+  created_at: z.string(),
+  updated_at: z.string(),
+});
+
+// Default schema without translations for API validation
+export const studentSchema = z.object({
+  id: z.string(),
+  first_name: z.string().min(2),
+  last_name: z.string().min(2),
+  identification_number: z.string().min(5),
+  gender: z.enum(["male", "female"]),
+  birth_date: z.string(),
+  city: z.string().min(2),
+  address: z.string().min(5),
+  mobile_number: z.string().min(10),
+  email: z.string().email(),
+  study_branch: z.enum([
+    "mathematics",
+    "social_sciences",
+    "engineering",
+    "fashion",
+    "audiovisual_arts",
+  ]),
+  modality: z.enum(["online", "in_person"]),
+  status: z.enum(["active", "inactive"]),
   created_at: z.string(),
   updated_at: z.string(),
 });

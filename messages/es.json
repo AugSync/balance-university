@@ -43,13 +43,9 @@
   },
   "students": {
     "title": "Estudiantes",
-    "subtitle": "Aquí está la lista de todos tus estudiantes",
-    "addStudent": "Agregar Estudiante",
-    "filterStudents": "Filtrar estudiantes...",
-    "studyBranch": "Rama de Estudio",
-    "modality": "Modalidad",
-    "status": "Estado",
-    "view": "Ver",
+    "description": "Gestiona los estudiantes de la academia",
+    "empty": "No hay estudiantes",
+    "search": "Buscar estudiantes...",
     "details": {
       "title": "Detalles del Estudiante",
       "description": "Información completa del estudiante",
@@ -66,18 +62,37 @@
       "email": "Correo electrónico",
       "academicInfo": "Información Académica"
     },
+    "gender": {
+      "male": "Masculino",
+      "female": "Femenino"
+    },
+    "studyBranch": "Rama de estudio",
+    "studyBranches": {
+      "mathematics": "Matemáticas",
+      "social_sciences": "Ciencias Sociales",
+      "engineering": "Ingeniería",
+      "fashion": "Moda",
+      "audiovisual_arts": "Artes Audiovisuales"
+    },
+    "modality": "Modalidad",
+    "modalities": {
+      "online": "En línea",
+      "inPerson": "Presencial"
+    },
+    "status": "Estado",
+    "statuses": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    },
     "form": {
-      "createTitle": "Crear Estudiante",
-      "editTitle": "Editar Estudiante",
+      "createTitle": "Crear estudiante",
+      "editTitle": "Editar estudiante",
       "createDescription": "Agregar un nuevo estudiante al sistema",
-      "editDescription": "Modificar información del estudiante",
+      "editDescription": "Modificar la información del estudiante",
       "create": "Crear",
       "creating": "Creando...",
+      "saveChanges": "Guardar cambios",
       "saving": "Guardando...",
-      "saveChanges": "Guardar Cambios",
-      "selectStudyBranch": "Seleccionar rama de estudio",
-      "selectModality": "Seleccionar modalidad",
-      "selectStatus": "Seleccionar estado",
       "placeholders": {
         "firstName": "Ingrese nombre",
         "lastName": "Ingrese apellido",
@@ -93,36 +108,33 @@
         "status": "Seleccione estado"
       }
     },
-    "delete": {
-      "title": "Eliminar Estudiante",
-      "description": "¿Estás seguro de que deseas eliminar este estudiante? Esta acción no se puede deshacer.",
-      "confirmButton": "Eliminar",
-      "cancelButton": "Cancelar"
-    },
     "notifications": {
+      "createError": "Error al crear estudiante",
+      "updateError": "Error al actualizar estudiante",
+      "deleteError": "Error al eliminar estudiante",
       "createSuccess": "Estudiante creado exitosamente",
       "updateSuccess": "Estudiante actualizado exitosamente",
       "deleteSuccess": "Estudiante eliminado exitosamente",
       "bulkDeleteSuccess": "{count} estudiante(s) eliminado(s) exitosamente"
     },
-    "gender": {
-      "male": "Masculino",
-      "female": "Femenino"
+    "validation": {
+      "firstName": "El nombre debe tener al menos 2 caracteres",
+      "lastName": "El apellido debe tener al menos 2 caracteres",
+      "identification": "El número de identificación debe tener al menos 5 caracteres",
+      "city": "La ciudad debe tener al menos 2 caracteres",
+      "address": "La dirección debe tener al menos 5 caracteres",
+      "mobileNumber": "El número de teléfono debe tener al menos 10 caracteres",
+      "email": "El correo electrónico no es válido"
     },
-    "studyBranches": {
-      "mathematics": "Matemáticas",
-      "social_sciences": "Ciencias Sociales",
-      "engineering": "Ingeniería",
-      "fashion": "Moda",
-      "audiovisual_arts": "Artes Audiovisuales"
-    },
-    "modalities": {
-      "online": "En línea",
-      "inPerson": "Presencial"
-    },
-    "statuses": {
-      "active": "Activo",
-      "inactive": "Inactivo"
+    "subtitle": "Aquí está la lista de todos tus estudiantes",
+    "addStudent": "Agregar Estudiante",
+    "filterStudents": "Filtrar estudiantes...",
+    "view": "Ver",
+    "delete": {
+      "title": "Eliminar Estudiante",
+      "description": "¿Estás seguro de que deseas eliminar este estudiante? Esta acción no se puede deshacer.",
+      "confirmButton": "Eliminar",
+      "cancelButton": "Cancelar"
     },
     "columns": {
       "lastName": "Apellido",
@@ -145,7 +157,6 @@
       "goToNextPage": "Ir a la página siguiente",
       "goToLastPage": "Ir a la última página"
     },
-    "search": "Buscar estudiantes...",
     "loading": "Cargando...",
     "no_results": "No se encontraron estudiantes",
     "previous": "Anterior",

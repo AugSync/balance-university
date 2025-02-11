@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPaginatedStudents, createStudent, updateStudent } from "@/lib/db/students";
+import { getPaginatedStudents, createStudent, updateStudent, deleteStudent, deleteManyStudents } from "@/lib/db/students";
 import { z } from "zod";
 import { studentSchema } from "@/types/student";
 
@@ -131,6 +131,36 @@ export async function PUT(request: NextRequest) {
     }
 
     console.error("Error updating student:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    const ids = searchParams.get("ids");
+
+    if (ids) {
+      // Bulk delete
+      const idsArray = JSON.parse(ids) as string[];
+      await deleteManyStudents(idsArray);
+      return NextResponse.json({ success: true });
+    } else if (id) {
+      // Single delete
+      await deleteStudent(id);
+      return NextResponse.json({ success: true });
+    }
+
+    return NextResponse.json(
+      { error: "Student ID or IDs are required" },
+      { status: 400 }
+    );
+  } catch (error) {
+    console.error("Error deleting student(s):", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

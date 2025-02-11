@@ -65,6 +65,13 @@ export async function deleteStudent(id: string) {
   return true;
 }
 
+export async function deleteManyStudents(ids: string[]) {
+  const { error } = await supabase.from(TABLE_NAME).delete().in("id", ids);
+
+  if (error) throw error;
+  return true;
+}
+
 export type GetStudentsParams = {
   page?: number;
   limit?: number;

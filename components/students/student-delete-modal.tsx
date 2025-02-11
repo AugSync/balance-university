@@ -12,12 +12,15 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Student } from "@/types/student"
+import { Button } from "@/components/ui/button"
+import { Loader2 } from "lucide-react"
 
-interface StudentDeleteModalProps {
+export interface StudentDeleteModalProps {
   student: Student | undefined
   open: boolean
   onClose: () => void
   onConfirm: () => void
+  isLoading?: boolean
 }
 
 export function StudentDeleteModal({
@@ -25,6 +28,7 @@ export function StudentDeleteModal({
   open,
   onClose,
   onConfirm,
+  isLoading = false,
 }: StudentDeleteModalProps) {
   const t = useTranslations("students")
   
@@ -45,10 +49,15 @@ export function StudentDeleteModal({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{t("delete.cancelButton")}</AlertDialogCancel>
-          <AlertDialogAction onClick={handleConfirm}>
+          <AlertDialogCancel disabled={isLoading}>{t("delete.cancelButton")}</AlertDialogCancel>
+          <Button
+            variant="destructive"
+            onClick={handleConfirm}
+            disabled={isLoading}
+          >
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {t("delete.confirmButton")}
-          </AlertDialogAction>
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

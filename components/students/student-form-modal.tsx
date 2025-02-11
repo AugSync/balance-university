@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Student, studentSchema } from "@/types/student";
+import { Student, studentSchema, createStudentSchema } from "@/types/student";
 import {
   Select,
   SelectContent,
@@ -72,7 +72,7 @@ export function StudentFormModal({
 
   const form = useForm<z.infer<typeof studentSchema>>({
     resolver: zodResolver(
-      studentSchema.omit({ id: true, created_at: true, updated_at: true })
+      createStudentSchema(t).omit({ id: true, created_at: true, updated_at: true })
     ),
     defaultValues,
   });

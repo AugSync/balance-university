@@ -10,25 +10,29 @@ import { Student } from "@/types/student";
 import { StudentDetailsModal } from "@/components/students/student-details-modal";
 import { StudentFormModal } from "@/components/students/student-form-modal";
 import { StudentDeleteModal } from "@/components/students/student-delete-modal";
-import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { useStudentActions } from "@/hooks/use-students";
 
 export default function StudentsPage() {
   const t = useTranslations("students");
+  const { deleteStudent, deleteManyStudents, isLoading } = useStudentActions();
   const [selectedStudent, setSelectedStudent] = useState<Student | undefined>(undefined);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleDeleteStudent = () => {
+  const handleDeleteStudent = async () => {
     if (!selectedStudent) return;
-    console.log('Eliminar estudiante:', selectedStudent.id);
-    toast.success(t("notifications.deleteSuccess"));
+    const success = await deleteStudent(selectedStudent.id);
+    if (success) {
+      setIsDeleteModalOpen(false);
+      setSelectedStudent(undefined);
+    }
   };
 
-  const handleBulkDeleteStudents = (selectedStudents: Student[]) => {
-    console.log('Eliminar estudiantes:', selectedStudents.map(s => s.id));
-    toast.success(t("notifications.bulkDeleteSuccess", { count: selectedStudents.length }));
+  const handleBulkDeleteStudents = async (selectedStudents: Student[]) => {
+    const ids = selectedStudents.map(s => s.id);
+    await deleteManyStudents(ids);
   };
 
   const openDetailsModal = (student: Student) => {
@@ -37,7 +41,6 @@ export default function StudentsPage() {
   };
 
   const openEditModal = (student: Student) => {
-    console.log("Opening edit modal with student:", student); // Debug log
     setSelectedStudent(student);
     setIsFormModalOpen(true);
   };
@@ -52,8 +55,6 @@ export default function StudentsPage() {
     onEdit: openEditModal,
     onDelete: openDeleteModal,
   });
-
-  console.log(selectedStudent);
 
   return (
     <div className="flex-1 flex flex-col min-h-[calc(100vh-2rem)] p-4 md:p-8 pt-6 w-full">
@@ -99,6 +100,7 @@ export default function StudentsPage() {
           setSelectedStudent(undefined);
         }}
         onConfirm={handleDeleteStudent}
+        isLoading={isLoading}
       />
     </div>
   );
