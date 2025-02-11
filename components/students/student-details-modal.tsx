@@ -1,7 +1,6 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -9,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { format } from "date-fns"
+import { format, parseISO } from "date-fns"
 import { Student } from "@/types/student"
 import { Separator } from "../ui/separator"
 
@@ -28,6 +27,54 @@ export function StudentDetailsModal({
   
   if (!student) return null
 
+  const formatDate = (dateString: string) => {
+    try {
+      return format(parseISO(dateString), 'dd/MM/yyyy')
+    } catch (error) {
+      console.error('Error formatting date:', error)
+      return dateString // Fallback to original string if parsing fails
+    }
+  }
+
+  const getStudyBranchLabel = (branch: string) => {
+    switch (branch) {
+      case 'mathematics':
+        return t('studyBranches.mathematics')
+      case 'social_sciences':
+        return t('studyBranches.social_sciences')
+      case 'engineering':
+        return t('studyBranches.engineering')
+      case 'fashion':
+        return t('studyBranches.fashion')
+      case 'audiovisual_arts':
+        return t('studyBranches.audiovisual_arts')
+      default:
+        return branch
+    }
+  }
+
+  const getModalityLabel = (modality: string) => {
+    switch (modality) {
+      case 'online':
+        return t('modalities.online')
+      case 'in_person':
+        return t('modalities.inPerson')
+      default:
+        return modality
+    }
+  }
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'active':
+        return t('statuses.active')
+      case 'inactive':
+        return t('statuses.inactive')
+      default:
+        return status
+    }
+  }
+
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[600px]">
@@ -44,11 +91,11 @@ export function StudentDetailsModal({
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <span className="text-sm text-muted-foreground">{t("details.name")}:</span>
-                  <p>{student.firstName} {student.lastName}</p>
+                  <p>{student.first_name} {student.last_name}</p>
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">{t("details.identification")}:</span>
-                  <p>{student.identificationNumber}</p>
+                  <p>{student.identification_number}</p>
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">{t("details.gender")}:</span>
@@ -56,7 +103,7 @@ export function StudentDetailsModal({
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">{t("details.birthDate")}:</span>
-                  <p>{format(student.birthDate, 'dd/MM/yyyy')}</p>
+                  <p>{formatDate(student.birth_date)}</p>
                 </div>
               </div>
             </div>
@@ -76,7 +123,7 @@ export function StudentDetailsModal({
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">{t("details.phone")}:</span>
-                  <p>{student.mobileNumber}</p>
+                  <p>{student.mobile_number}</p>
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">{t("details.email")}:</span>
@@ -92,15 +139,15 @@ export function StudentDetailsModal({
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <span className="text-sm text-muted-foreground">{t("studyBranch")}:</span>
-                  <p>{student.studyBranch}</p>
+                  <p>{getStudyBranchLabel(student.study_branch)}</p>
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">{t("modality")}:</span>
-                  <p>{student.modality}</p>
+                  <p>{getModalityLabel(student.modality)}</p>
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">{t("status")}:</span>
-                  <p>{student.status}</p>
+                  <p>{getStatusLabel(student.status)}</p>
                 </div>
               </div>
             </div>

@@ -53,15 +53,23 @@ export const Columns = ({
         <DataTableColumnHeader column={column} title={t("details.name")} />
       ),
       cell: ({ row }) => {
-        const firstName = row.getValue("first_name") as string;
-        const lastName = row.getValue("last_name") as string;
-        return <div>{`${firstName} ${lastName}`}</div>;
+        return (
+          <div 
+            className="flex items-center cursor-pointer hover:text-primary"
+            onClick={(e) => {
+              e.stopPropagation()
+              onDetails(row.original)
+            }}
+          >
+            {row.getValue("first_name")}
+          </div>
+        )
       },
     },
     {
       accessorKey: "last_name",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title={t("columns.lastName")} />
+        <DataTableColumnHeader column={column} title={t("details.lastName")} />
       ),
       cell: ({ row }) => {
         return (
@@ -75,7 +83,7 @@ export const Columns = ({
             {row.getValue("last_name")}
           </div>
         )
-      }
+      },
     },
     {
       accessorKey: "identification_number",
