@@ -57,14 +57,14 @@ export default function StudentsPage() {
 
   return (
     <div className="flex-1 flex flex-col min-h-[calc(100vh-2rem)] p-4 md:p-8 pt-6 w-full">
-      <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+      <div className="flex flex-wrap items-start sm:items-center justify-between gap-4 mb-4">
         <div className="flex-1 min-w-[200px]">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight">{t("title")}</h2>
           <p className="text-muted-foreground mt-1">
             {t("subtitle")}
           </p>
         </div>
-        <Button onClick={() => setIsFormModalOpen(true)} className="h-9 px-2 lg:px-4 shrink-0">
+        <Button onClick={() => setIsFormModalOpen(true)} className="h-9 px-2 lg:px-4 shrink-0 self-start sm:self-auto">
           <Plus className="h-4 w-4 md:mr-2" />
           <span className="hidden md:inline">{t("addStudent")}</span>
         </Button>
