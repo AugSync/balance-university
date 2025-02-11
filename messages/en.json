@@ -1,5 +1,7 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "description": "Access your courses, grades, and educational resources all in one place. Start your learning journey today!",
+    "login": "Login",
+    "university": "University"
   }
 }
