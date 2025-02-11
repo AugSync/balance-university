@@ -40,5 +40,86 @@
       "title": "Estudiantes Recientes",
       "description": "Tienes 265 estudiantes."
     }
+  },
+  "students": {
+    "details": {
+      "title": "Detalles del Estudiante",
+      "description": "Información completa del estudiante",
+      "basicInfo": "Información Básica",
+      "name": "Nombre",
+      "identification": "Identificación",
+      "gender": "Género",
+      "birthDate": "Fecha de Nacimiento",
+      "contactLocation": "Contacto y Ubicación",
+      "city": "Ciudad",
+      "address": "Dirección",
+      "phone": "Teléfono",
+      "email": "Email",
+      "academicInfo": "Información Académica",
+      "studyBranch": "Rama de Estudio",
+      "modality": "Modalidad",
+      "status": "Estado"
+    },
+    "delete": {
+      "title": "¿Estás seguro?",
+      "description": "Esta acción eliminará permanentemente al estudiante {name}. Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    },
+    "form": {
+      "create": {
+        "title": "Crear Estudiante",
+        "description": "Ingresa los datos del nuevo estudiante",
+        "submit": "Crear Estudiante"
+      },
+      "edit": {
+        "title": "Editar Estudiante",
+        "description": "Modifica los datos del estudiante",
+        "submit": "Guardar Cambios"
+      },
+      "firstName": "Nombre",
+      "firstNamePlaceholder": "John",
+      "lastName": "Apellido",
+      "lastNamePlaceholder": "Doe",
+      "identification": "Número de Identificación",
+      "identificationPlaceholder": "12345678",
+      "gender": "Género",
+      "genderPlaceholder": "Selecciona un género",
+      "birthDate": "Fecha de Nacimiento",
+      "birthDatePlaceholder": "Selecciona una fecha",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Teléfono",
+      "phonePlaceholder": "+1234567890",
+      "city": "Ciudad",
+      "cityPlaceholder": "New York",
+      "address": "Dirección",
+      "addressPlaceholder": "123 Main St",
+      "studyBranch": "Rama de Estudio",
+      "studyBranchPlaceholder": "Selecciona una rama",
+      "modality": "Modalidad",
+      "modalityPlaceholder": "Selecciona una modalidad",
+      "status": "Estado",
+      "statusPlaceholder": "Selecciona un estado"
+    },
+    "gender": {
+      "male": "Masculino",
+      "female": "Femenino"
+    },
+    "studyBranch": {
+      "mathematics": "Matemáticas",
+      "social_sciences": "Ciencias Sociales",
+      "engineering": "Ingeniería",
+      "fashion": "Moda",
+      "audiovisual_arts": "Artes Audiovisuales"
+    },
+    "modality": {
+      "online": "En línea",
+      "in_person": "Presencial"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo"
+    }
   }
 } 

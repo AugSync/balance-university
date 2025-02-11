@@ -8,7 +8,17 @@ import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { format } from "date-fns";
 
-export const columns: ColumnDef<Student>[] = [
+interface ColumnsProps {
+  onView: (student: Student) => void;
+  onEdit: (student: Student) => void;
+  onDelete: (student: Student) => void;
+}
+
+export const columns = ({
+  onView,
+  onEdit,
+  onDelete,
+}: ColumnsProps): ColumnDef<Student>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -36,66 +46,182 @@ export const columns: ColumnDef<Student>[] = [
   {
     accessorKey: "firstName",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="First Name" />
+      <DataTableColumnHeader column={column} title="Nombre" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div 
+          className="flex items-center cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {row.getValue("firstName")}
+        </div>
+      )
+    }
   },
   {
     accessorKey: "lastName",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Last Name" />
+      <DataTableColumnHeader column={column} title="Apellido" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div 
+          className="flex items-center cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {row.getValue("lastName")}
+        </div>
+      )
+    }
   },
   {
     accessorKey: "identificationNumber",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ID Number" />
+      <DataTableColumnHeader column={column} title="Identificación" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div 
+          className="flex items-center cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {row.getValue("identificationNumber")}
+        </div>
+      )
+    }
   },
   {
     accessorKey: "gender",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Gender" />
+      <DataTableColumnHeader column={column} title="Género" />
     ),
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("gender")}</div>
-    ),
+    cell: ({ row }) => {
+      const gender = row.getValue("gender") as string;
+      return (
+        <div 
+          className="capitalize cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {gender === 'male' ? 'Masculino' : 'Femenino'}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "birthDate",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Birth Date" />
+      <DataTableColumnHeader column={column} title="Fecha de Nacimiento" />
     ),
     cell: ({ row }) => {
       const date = row.getValue("birthDate") as Date;
-      return <div>{format(date, "PPP")}</div>;
+      return (
+        <div 
+          className="cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {format(date, "PPP")}
+        </div>
+      );
     },
   },
   {
     accessorKey: "city",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="City" />
+      <DataTableColumnHeader column={column} title="Ciudad" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div 
+          className="cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {row.getValue("city")}
+        </div>
+      );
+    }
   },
   {
     accessorKey: "email",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Email" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div 
+          className="cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {row.getValue("email")}
+        </div>
+      );
+    }
   },
   {
     accessorKey: "mobileNumber",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Mobile" />
+      <DataTableColumnHeader column={column} title="Teléfono" />
     ),
+    cell: ({ row }) => {
+      return (
+        <div 
+          className="cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {row.getValue("mobileNumber")}
+        </div>
+      );
+    }
   },
   {
     accessorKey: "studyBranch",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Study Branch" />
+      <DataTableColumnHeader column={column} title="Rama de Estudio" />
     ),
     cell: ({ row }) => {
       const branch = row.getValue("studyBranch") as string;
-      return <div className="capitalize">{branch.replace("_", " ")}</div>;
+      const branchMap: Record<string, string> = {
+        mathematics: "Matemáticas",
+        social_sciences: "Ciencias Sociales",
+        engineering: "Ingeniería",
+        fashion: "Moda",
+        audiovisual_arts: "Artes Audiovisuales",
+      };
+      return (
+        <div 
+          className="capitalize cursor-pointer hover:text-primary"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          {branchMap[branch] || branch}
+        </div>
+      );
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -104,14 +230,22 @@ export const columns: ColumnDef<Student>[] = [
   {
     accessorKey: "modality",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Modality" />
+      <DataTableColumnHeader column={column} title="Modalidad" />
     ),
     cell: ({ row }) => {
       const modality = row.getValue("modality") as string;
       return (
-        <Badge variant="outline" className="capitalize">
-          {modality.replace("_", " ")}
-        </Badge>
+        <div 
+          className="cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
+        >
+          <Badge variant="outline" className="capitalize">
+            {modality === 'online' ? 'En línea' : 'Presencial'}
+          </Badge>
+        </div>
       );
     },
     filterFn: (row, id, value) => {
@@ -121,17 +255,25 @@ export const columns: ColumnDef<Student>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="Estado" />
     ),
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
       return (
-        <Badge
-          className="capitalize"
-          variant={status === "active" ? "default" : "secondary"}
+        <div 
+          className="cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation()
+            onView(row.original)
+          }}
         >
-          {status}
-        </Badge>
+          <Badge
+            className="capitalize"
+            variant={status === "active" ? "default" : "secondary"}
+          >
+            {status === 'active' ? 'Activo' : 'Inactivo'}
+          </Badge>
+        </div>
       );
     },
     filterFn: (row, id, value) => {
@@ -140,6 +282,13 @@ export const columns: ColumnDef<Student>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => (
+      <DataTableRowActions 
+        row={row} 
+        onView={onView}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />
+    ),
   },
 ]; 

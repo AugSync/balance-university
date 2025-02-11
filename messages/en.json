@@ -1,13 +1,13 @@
 {
   "HomePage": {
-    "description": "Access your courses, grades, and educational resources all in one place. Start your learning journey today!",
+    "description": "Access your courses, grades, and educational resources in one place. Start your learning journey today!",
     "login": "Login",
     "university": "University",
     "email": "Email",
     "password": "Password",
     "back": "Back",
     "submitting": "Submitting...",
-    "emailError": "Please enter a valid email address",
+    "emailError": "Please enter a valid email",
     "passwordError": "Password must be at least 6 characters"
   },
   "Navigation": {
@@ -39,6 +39,87 @@
       "engineering": "Engineering",
       "fashion": "Fashion",
       "audiovisualArts": "Audiovisual Arts"
+    }
+  },
+  "students": {
+    "details": {
+      "title": "Student Details",
+      "description": "Complete student information",
+      "basicInfo": "Basic Information",
+      "name": "Name",
+      "identification": "Identification",
+      "gender": "Gender",
+      "birthDate": "Birth Date",
+      "contactLocation": "Contact & Location",
+      "city": "City",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "academicInfo": "Academic Information",
+      "studyBranch": "Study Branch",
+      "modality": "Modality",
+      "status": "Status"
+    },
+    "delete": {
+      "title": "Are you sure?",
+      "description": "This action will permanently delete student {name}. This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    },
+    "form": {
+      "create": {
+        "title": "Create Student",
+        "description": "Enter the details for the new student",
+        "submit": "Create Student"
+      },
+      "edit": {
+        "title": "Edit Student",
+        "description": "Modify student details",
+        "submit": "Save Changes"
+      },
+      "firstName": "First Name",
+      "firstNamePlaceholder": "John",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Doe",
+      "identification": "Identification Number",
+      "identificationPlaceholder": "12345678",
+      "gender": "Gender",
+      "genderPlaceholder": "Select a gender",
+      "birthDate": "Birth Date",
+      "birthDatePlaceholder": "Select a date",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1234567890",
+      "city": "City",
+      "cityPlaceholder": "New York",
+      "address": "Address",
+      "addressPlaceholder": "123 Main St",
+      "studyBranch": "Study Branch",
+      "studyBranchPlaceholder": "Select a branch",
+      "modality": "Modality",
+      "modalityPlaceholder": "Select a modality",
+      "status": "Status",
+      "statusPlaceholder": "Select a status"
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "studyBranch": {
+      "mathematics": "Mathematics",
+      "social_sciences": "Social Sciences",
+      "engineering": "Engineering",
+      "fashion": "Fashion",
+      "audiovisual_arts": "Audiovisual Arts"
+    },
+    "modality": {
+      "online": "Online",
+      "in_person": "In Person"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
     }
   }
 }

@@ -27,15 +27,21 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
+import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
+import { StudentBulkDeleteModal } from "./student-bulk-delete-modal";
+import { DataTableViewOptions } from "./data-table-view-options";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onBulkDelete?: (selectedRows: TData[]) => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  onBulkDelete,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
@@ -55,6 +61,7 @@ export function DataTable<TData, TValue>({
   });
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [isBulkDeleteModalOpen, setIsBulkDeleteModalOpen] = React.useState(false);
 
   const table = useReactTable({
     data,
@@ -78,9 +85,37 @@ export function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const selectedRows = table.getFilteredSelectedRowModel().rows;
+
+  const handleBulkDelete = () => {
+    if (onBulkDelete) {
+      onBulkDelete(selectedRows.map((row) => row.original));
+    }
+    setIsBulkDeleteModalOpen(false);
+    setRowSelection({});
+  };
+
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex-1">
+          <DataTableToolbar table={table} />
+        </div>
+        <div className="flex items-center gap-2">
+          {selectedRows.length > 0 && (
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => setIsBulkDeleteModalOpen(true)}
+              className="h-8"
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Eliminar ({selectedRows.length})
+            </Button>
+          )}
+          <DataTableViewOptions table={table} />
+        </div>
+      </div>
       <div className="rounded-md border">
         <div className="relative overflow-y-auto">
           <Table>
@@ -134,6 +169,13 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
       <DataTablePagination table={table} />
+
+      <StudentBulkDeleteModal
+        isOpen={isBulkDeleteModalOpen}
+        onClose={() => setIsBulkDeleteModalOpen(false)}
+        onConfirm={handleBulkDelete}
+        count={selectedRows.length}
+      />
     </div>
   );
 } 
