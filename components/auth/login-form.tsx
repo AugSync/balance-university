@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import FormInput from "./form-input";
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 
 interface LoginFormProps {
   onBack?: () => void;
@@ -65,14 +66,15 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
           touched={formik.touched.password}
           {...formik.getFieldProps("password")}
         />
-        <Button 
-          className="w-full" 
+        <div className="mt-8" />
+        <InteractiveHoverButton 
+          className="w-full bg-gray-300" 
           type="submit"
           disabled={formik.isSubmitting}
         >
           {formik.isSubmitting ? t("submitting") : t("login")}
-        </Button>
+        </InteractiveHoverButton>
       </form>
     </div>
   );
-} 
+}  
