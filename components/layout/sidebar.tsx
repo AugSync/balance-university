@@ -8,9 +8,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { SparklesText } from "@/components/magicui/sparkles-text";
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function Sidebar({ className }: SidebarProps) {
+export function Sidebar({ className }: React.HTMLAttributes<HTMLDivElement>) {
   const pathname = usePathname();
   const t = useTranslations("Navigation");
   const homeT = useTranslations("HomePage");

@@ -1,4 +1,4 @@
-import { startOfMonth, subMonths, eachMonthOfInterval, format } from "date-fns";
+import { subMonths, eachMonthOfInterval, format } from "date-fns";
 import { es } from "date-fns/locale";
 import { supabase } from "../supabase";
 import { TABLE_NAME } from "./students";

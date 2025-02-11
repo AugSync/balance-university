@@ -1,7 +1,6 @@
 import {
   BookOpen,
   GraduationCap,
-  Palette,
   Camera,
   Scissors,
 } from "lucide-react";

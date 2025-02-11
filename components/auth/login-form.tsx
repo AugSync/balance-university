@@ -27,7 +27,7 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
 
   const defaultValues: LoginFormValues = {
     email: "admin@balance.com",
-    password: "password",
+    password: "balance123!",
   };
 
   const form = useForm<LoginFormValues>({
@@ -44,16 +44,23 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
         body: JSON.stringify(values),
       });
 
+      
       const data = await response.json();
-
+      
+      console.log(data);
       if (!response.ok) {
-        throw new Error(data.error || 'Error al iniciar sesión');
+        if (response.status === 401) {
+          toast.error(t("invalidCredentials") || 'Credenciales inválidas');
+          return;
+        }
+        throw new Error(data.error || t("loginError") || 'Error al iniciar sesión');
       }
 
+      toast.success(t("loginSuccess") || '¡Bienvenido!');
       await router.push("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
-      toast.error(error instanceof Error ? error.message : 'Error al iniciar sesión');
+      toast.error(error instanceof Error ? error.message : t("loginError") || 'Error al iniciar sesión');
     }
   };
 

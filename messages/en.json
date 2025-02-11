@@ -8,7 +8,10 @@
     "back": "Back",
     "submitting": "Submitting...",
     "emailError": "Please enter a valid email",
-    "passwordError": "Password must be at least 6 characters"
+    "passwordError": "Password must be at least 6 characters",
+    "invalidCredentials": "Invalid credentials",
+    "loginError": "Error logging in",
+    "loginSuccess": "Welcome!"
   },
   "Navigation": {
     "dashboard": "Dashboard",

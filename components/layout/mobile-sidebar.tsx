@@ -5,11 +5,9 @@ import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/co
 import { Button } from "@/components/ui/button";
 import { Sidebar } from "./sidebar";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
 
 export const MobileSidebar = () => {
   const [open, setOpen] = useState(false);
-  const t = useTranslations("Navigation");
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>

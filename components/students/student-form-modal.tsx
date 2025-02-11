@@ -31,7 +31,6 @@ import {
 } from "../ui/select";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { format } from "date-fns";
 import { z } from "zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -55,7 +54,7 @@ export function StudentFormModal({
   const t = useTranslations("students");
   const queryClient = useQueryClient();
 
-  const defaultValues = {
+  const defaultValues = React.useMemo(() => ({
     first_name: "",
     last_name: "",
     identification_number: "",
@@ -68,7 +67,7 @@ export function StudentFormModal({
     study_branch: "mathematics" as const,
     modality: "online" as const,
     status: "active" as const,
-  };
+  }), []);
 
   const form = useForm<z.infer<typeof studentSchema>>({
     resolver: zodResolver(
@@ -81,7 +80,7 @@ export function StudentFormModal({
   React.useEffect(() => {
     if (open) {
       if (student) {
-        form.reset({
+        const studentData = {
           first_name: student.first_name,
           last_name: student.last_name,
           identification_number: student.identification_number,
@@ -94,12 +93,13 @@ export function StudentFormModal({
           study_branch: student.study_branch,
           modality: student.modality,
           status: student.status,
-        });
+        };
+        form.reset(studentData);
       } else {
         form.reset(defaultValues);
       }
     }
-  }, [student, open, form]);
+  }, [student, open, form, defaultValues]);
 
   const createMutation = useMutation({
     mutationFn: async (data: z.infer<typeof studentSchema>) => {

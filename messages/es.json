@@ -8,7 +8,10 @@
     "back": "Volver",
     "submitting": "Enviando...",
     "emailError": "Por favor ingresa un correo electrónico válido",
-    "passwordError": "La contraseña debe tener al menos 6 caracteres"
+    "passwordError": "La contraseña debe tener al menos 6 caracteres",
+    "invalidCredentials": "Credenciales inválidas",
+    "loginError": "Error al iniciar sesión",
+    "loginSuccess": "¡Bienvenido!"
   },
   "Navigation": {
     "dashboard": "Panel de Control",

@@ -73,7 +73,6 @@ export default function StudentsPage() {
       </div>
       <DataTable
         columns={columns}
-        data={[]}
         onBulkDelete={handleBulkDeleteStudents}
       />
 

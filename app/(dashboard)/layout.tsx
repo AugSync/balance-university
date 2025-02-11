@@ -12,7 +12,6 @@ import {
 import { LogOut } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { Toaster } from "sonner";
 import { LanguageSelector } from "@/components/language-selector";
 import { Providers } from "../providers";
 
@@ -42,7 +41,6 @@ export default function DashboardLayout({
 
   return (
     <Providers>
-      <Toaster />
       <div className="h-full relative">
         <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80] bg-background border-r">
           <Sidebar />

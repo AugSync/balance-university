@@ -13,12 +13,10 @@ import { RecentStudentsDescription } from "@/components/dashboard/recent-student
 import { Overview } from "@/components/dashboard/overview";
 import { StatsCards } from "@/components/dashboard/stats-cards";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function DashboardPage() {
   const t = useTranslations("Dashboard");
-  const router = useRouter();
   const [selectedCareer, setSelectedCareer] = useState("mathematics");
 
   const careers = [
@@ -28,11 +26,6 @@ export default function DashboardPage() {
     { id: "fashion", label: t("careers.fashion") },
     { id: "audiovisual-arts", label: t("careers.audiovisualArts") },
   ];
-
-  const handleLogout = () => {
-    // Add your logout logic here
-    router.push("/");
-  };
 
   return (
     <div className="flex-1 flex flex-col min-h-[calc(100vh-2rem)] p-4 md:p-8 pt-6 w-full">

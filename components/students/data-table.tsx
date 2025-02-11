@@ -37,11 +37,10 @@ import { useDebounce } from "../../hooks/use-debounce";
 
 interface DataTableProps {
   columns: ColumnDef<Student>[];
-  data: Student[];
   onBulkDelete?: (selectedRows: Student[]) => void;
 }
 
-export function DataTable({ columns, data, onBulkDelete }: DataTableProps) {
+export function DataTable({ columns, onBulkDelete }: DataTableProps) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({
