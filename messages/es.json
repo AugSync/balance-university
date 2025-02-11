@@ -42,11 +42,20 @@
     }
   },
   "students": {
+    "title": "Estudiantes",
+    "subtitle": "Aquí está la lista de todos tus estudiantes",
+    "addStudent": "Agregar Estudiante",
+    "filterStudents": "Filtrar estudiantes...",
+    "studyBranch": "Rama de Estudio",
+    "modality": "Modalidad",
+    "status": "Estado",
+    "view": "Ver",
     "details": {
       "title": "Detalles del Estudiante",
       "description": "Información completa del estudiante",
       "basicInfo": "Información Básica",
       "name": "Nombre",
+      "lastName": "Apellido",
       "identification": "Identificación",
       "gender": "Género",
       "birthDate": "Fecha de Nacimiento",
@@ -54,70 +63,62 @@
       "city": "Ciudad",
       "address": "Dirección",
       "phone": "Teléfono",
-      "email": "Email",
-      "academicInfo": "Información Académica",
-      "studyBranch": "Rama de Estudio",
-      "modality": "Modalidad",
-      "status": "Estado"
-    },
-    "delete": {
-      "title": "¿Estás seguro?",
-      "description": "Esta acción eliminará permanentemente al estudiante {name}. Esta acción no se puede deshacer.",
-      "cancel": "Cancelar",
-      "confirm": "Eliminar"
+      "email": "Correo electrónico",
+      "academicInfo": "Información Académica"
     },
     "form": {
-      "create": {
-        "title": "Crear Estudiante",
-        "description": "Ingresa los datos del nuevo estudiante",
-        "submit": "Crear Estudiante"
-      },
-      "edit": {
-        "title": "Editar Estudiante",
-        "description": "Modifica los datos del estudiante",
-        "submit": "Guardar Cambios"
-      },
-      "firstName": "Nombre",
-      "firstNamePlaceholder": "John",
-      "lastName": "Apellido",
-      "lastNamePlaceholder": "Doe",
-      "identification": "Número de Identificación",
-      "identificationPlaceholder": "12345678",
-      "gender": "Género",
-      "genderPlaceholder": "Selecciona un género",
-      "birthDate": "Fecha de Nacimiento",
-      "birthDatePlaceholder": "Selecciona una fecha",
-      "email": "Email",
-      "emailPlaceholder": "john@example.com",
-      "phone": "Teléfono",
-      "phonePlaceholder": "+1234567890",
-      "city": "Ciudad",
-      "cityPlaceholder": "New York",
-      "address": "Dirección",
-      "addressPlaceholder": "123 Main St",
-      "studyBranch": "Rama de Estudio",
-      "studyBranchPlaceholder": "Selecciona una rama",
-      "modality": "Modalidad",
-      "modalityPlaceholder": "Selecciona una modalidad",
-      "status": "Estado",
-      "statusPlaceholder": "Selecciona un estado"
+      "createTitle": "Crear Estudiante",
+      "editTitle": "Editar Estudiante",
+      "createDescription": "Agregar un nuevo estudiante al sistema",
+      "editDescription": "Modificar información del estudiante",
+      "create": "Crear",
+      "saveChanges": "Guardar Cambios",
+      "selectStudyBranch": "Seleccionar rama de estudio",
+      "selectModality": "Seleccionar modalidad",
+      "selectStatus": "Seleccionar estado",
+      "placeholders": {
+        "firstName": "Ingrese nombre",
+        "lastName": "Ingrese apellido",
+        "identification": "Ingrese número de identificación",
+        "gender": "Seleccione género",
+        "birthDate": "Seleccione fecha de nacimiento",
+        "email": "Ingrese correo electrónico",
+        "phone": "Ingrese número de teléfono",
+        "city": "Ingrese ciudad",
+        "address": "Ingrese dirección",
+        "studyBranch": "Seleccione rama de estudio",
+        "modality": "Seleccione modalidad",
+        "status": "Seleccione estado"
+      }
+    },
+    "delete": {
+      "title": "Eliminar Estudiante",
+      "description": "¿Estás seguro de que deseas eliminar este estudiante? Esta acción no se puede deshacer.",
+      "confirmButton": "Eliminar",
+      "cancelButton": "Cancelar"
+    },
+    "notifications": {
+      "createSuccess": "Estudiante creado exitosamente",
+      "updateSuccess": "Estudiante actualizado exitosamente",
+      "deleteSuccess": "Estudiante eliminado exitosamente",
+      "bulkDeleteSuccess": "{count} estudiante(s) eliminado(s) exitosamente"
     },
     "gender": {
       "male": "Masculino",
       "female": "Femenino"
     },
-    "studyBranch": {
+    "studyBranches": {
       "mathematics": "Matemáticas",
-      "social_sciences": "Ciencias Sociales",
+      "socialSciences": "Ciencias Sociales",
       "engineering": "Ingeniería",
       "fashion": "Moda",
-      "audiovisual_arts": "Artes Audiovisuales"
+      "audiovisualArts": "Artes Audiovisuales"
     },
-    "modality": {
+    "modalities": {
       "online": "En línea",
-      "in_person": "Presencial"
+      "inPerson": "Presencial"
     },
-    "status": {
+    "statuses": {
       "active": "Activo",
       "inactive": "Inactivo"
     }

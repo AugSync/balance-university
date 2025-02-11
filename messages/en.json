@@ -42,11 +42,20 @@
     }
   },
   "students": {
+    "title": "Students",
+    "subtitle": "Here is the list of all your students",
+    "addStudent": "Add Student",
+    "filterStudents": "Filter students...",
+    "studyBranch": "Study Branch",
+    "modality": "Modality",
+    "status": "Status",
+    "view": "View",
     "details": {
       "title": "Student Details",
       "description": "Complete student information",
       "basicInfo": "Basic Information",
       "name": "Name",
+      "lastName": "Last Name",
       "identification": "Identification",
       "gender": "Gender",
       "birthDate": "Birth Date",
@@ -55,69 +64,61 @@
       "address": "Address",
       "phone": "Phone",
       "email": "Email",
-      "academicInfo": "Academic Information",
-      "studyBranch": "Study Branch",
-      "modality": "Modality",
-      "status": "Status"
-    },
-    "delete": {
-      "title": "Are you sure?",
-      "description": "This action will permanently delete student {name}. This action cannot be undone.",
-      "cancel": "Cancel",
-      "confirm": "Delete"
+      "academicInfo": "Academic Information"
     },
     "form": {
-      "create": {
-        "title": "Create Student",
-        "description": "Enter the details for the new student",
-        "submit": "Create Student"
-      },
-      "edit": {
-        "title": "Edit Student",
-        "description": "Modify student details",
-        "submit": "Save Changes"
-      },
-      "firstName": "First Name",
-      "firstNamePlaceholder": "John",
-      "lastName": "Last Name",
-      "lastNamePlaceholder": "Doe",
-      "identification": "Identification Number",
-      "identificationPlaceholder": "12345678",
-      "gender": "Gender",
-      "genderPlaceholder": "Select a gender",
-      "birthDate": "Birth Date",
-      "birthDatePlaceholder": "Select a date",
-      "email": "Email",
-      "emailPlaceholder": "john@example.com",
-      "phone": "Phone",
-      "phonePlaceholder": "+1234567890",
-      "city": "City",
-      "cityPlaceholder": "New York",
-      "address": "Address",
-      "addressPlaceholder": "123 Main St",
-      "studyBranch": "Study Branch",
-      "studyBranchPlaceholder": "Select a branch",
-      "modality": "Modality",
-      "modalityPlaceholder": "Select a modality",
-      "status": "Status",
-      "statusPlaceholder": "Select a status"
+      "createTitle": "Create Student",
+      "editTitle": "Edit Student",
+      "createDescription": "Add a new student to the system",
+      "editDescription": "Modify student information",
+      "create": "Create",
+      "saveChanges": "Save Changes",
+      "selectStudyBranch": "Select study branch",
+      "selectModality": "Select modality",
+      "selectStatus": "Select status",
+      "placeholders": {
+        "firstName": "Enter first name",
+        "lastName": "Enter last name",
+        "identification": "Enter identification number",
+        "gender": "Select gender",
+        "birthDate": "Select birth date",
+        "email": "Enter email address",
+        "phone": "Enter phone number",
+        "city": "Enter city",
+        "address": "Enter address",
+        "studyBranch": "Select study branch",
+        "modality": "Select modality",
+        "status": "Select status"
+      }
+    },
+    "delete": {
+      "title": "Delete Student",
+      "description": "Are you sure you want to delete this student? This action cannot be undone.",
+      "confirmButton": "Delete",
+      "cancelButton": "Cancel"
+    },
+    "notifications": {
+      "createSuccess": "Student created successfully",
+      "updateSuccess": "Student updated successfully",
+      "deleteSuccess": "Student deleted successfully",
+      "bulkDeleteSuccess": "{count} student(s) deleted successfully"
     },
     "gender": {
       "male": "Male",
       "female": "Female"
     },
-    "studyBranch": {
+    "studyBranches": {
       "mathematics": "Mathematics",
-      "social_sciences": "Social Sciences",
+      "socialSciences": "Social Sciences",
       "engineering": "Engineering",
       "fashion": "Fashion",
-      "audiovisual_arts": "Audiovisual Arts"
+      "audiovisualArts": "Audiovisual Arts"
     },
-    "modality": {
+    "modalities": {
       "online": "Online",
-      "in_person": "In Person"
+      "inPerson": "In Person"
     },
-    "status": {
+    "statuses": {
       "active": "Active",
       "inactive": "Inactive"
     }

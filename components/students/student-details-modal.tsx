@@ -15,13 +15,13 @@ import { Separator } from "../ui/separator"
 
 interface StudentDetailsModalProps {
   student: Student | undefined
-  isOpen: boolean
+  open: boolean
   onClose: () => void
 }
 
 export function StudentDetailsModal({
   student,
-  isOpen,
+  open,
   onClose,
 }: StudentDetailsModalProps) {
   const t = useTranslations("students")
@@ -29,7 +29,7 @@ export function StudentDetailsModal({
   if (!student) return null
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>{t("details.title")}</DialogTitle>
@@ -91,16 +91,16 @@ export function StudentDetailsModal({
               <h3 className="font-medium mb-2">{t("details.academicInfo")}</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <span className="text-sm text-muted-foreground">{t("details.studyBranch")}:</span>
-                  <p>{t(`studyBranch.${student.studyBranch}`)}</p>
+                  <span className="text-sm text-muted-foreground">{t("studyBranch")}:</span>
+                  <p>{student.studyBranch}</p>
                 </div>
                 <div>
-                  <span className="text-sm text-muted-foreground">{t("details.modality")}:</span>
-                  <p>{t(`modality.${student.modality}`)}</p>
+                  <span className="text-sm text-muted-foreground">{t("modality")}:</span>
+                  <p>{student.modality}</p>
                 </div>
                 <div>
-                  <span className="text-sm text-muted-foreground">{t("details.status")}:</span>
-                  <p>{t(`status.${student.status}`)}</p>
+                  <span className="text-sm text-muted-foreground">{t("status")}:</span>
+                  <p>{student.status}</p>
                 </div>
               </div>
             </div>

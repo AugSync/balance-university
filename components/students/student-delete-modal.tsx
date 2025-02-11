@@ -15,14 +15,14 @@ import { Student } from "@/types/student"
 
 interface StudentDeleteModalProps {
   student: Student | undefined
-  isOpen: boolean
+  open: boolean
   onClose: () => void
   onConfirm: () => void
 }
 
 export function StudentDeleteModal({
   student,
-  isOpen,
+  open,
   onClose,
   onConfirm,
 }: StudentDeleteModalProps) {
@@ -36,23 +36,18 @@ export function StudentDeleteModal({
   }
 
   return (
-    <AlertDialog open={isOpen} onOpenChange={onClose}>
+    <AlertDialog open={open} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t("delete.title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            {t("delete.description", {
-              name: `${student.firstName} ${student.lastName}`
-            })}
+            {t("delete.description")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>{t("delete.cancel")}</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={handleConfirm}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-          >
-            {t("delete.confirm")}
+          <AlertDialogCancel>{t("delete.cancelButton")}</AlertDialogCancel>
+          <AlertDialogAction onClick={handleConfirm}>
+            {t("delete.confirmButton")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

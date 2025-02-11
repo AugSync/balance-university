@@ -2,11 +2,11 @@
 
 import { X } from "lucide-react";
 import { Table } from "@tanstack/react-table";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { studyBranches, modalities, statuses } from "./data/data";
+import { useTranslations } from "next-intl";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -15,12 +15,13 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
+  const t = useTranslations("students");
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
     <div className="flex items-center space-x-2">
       <Input
-        placeholder="Filter students..."
+        placeholder={t("filterStudents")}
         value={(table.getColumn("firstName")?.getFilterValue() as string) ?? ""}
         onChange={(event) =>
           table.getColumn("firstName")?.setFilterValue(event.target.value)
@@ -30,21 +31,21 @@ export function DataTableToolbar<TData>({
       {table.getColumn("studyBranch") && (
         <DataTableFacetedFilter
           column={table.getColumn("studyBranch")}
-          title="Study Branch"
+          title={t("studyBranch")}
           options={studyBranches}
         />
       )}
       {table.getColumn("modality") && (
         <DataTableFacetedFilter
           column={table.getColumn("modality")}
-          title="Modality"
+          title={t("modality")}
           options={modalities}
         />
       )}
       {table.getColumn("status") && (
         <DataTableFacetedFilter
           column={table.getColumn("status")}
-          title="Status"
+          title={t("status")}
           options={statuses}
         />
       )}

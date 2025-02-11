@@ -32,46 +32,57 @@ import { z } from "zod"
 
 interface StudentFormModalProps {
   student?: Student
-  isOpen: boolean
+  open: boolean
   onClose: () => void
-  onSubmit: (data: z.infer<typeof studentSchema>) => void
+  onCreate: (data: Student) => void
+  onUpdate: (data: Student) => void
 }
 
 export function StudentFormModal({
   student,
-  isOpen,
+  open,
   onClose,
-  onSubmit,
+  onCreate,
+  onUpdate,
 }: StudentFormModalProps) {
   const t = useTranslations("students")
   
   const form = useForm<z.infer<typeof studentSchema>>({
     resolver: zodResolver(studentSchema),
     defaultValues: student || {
+      firstName: "",
+      lastName: "",
+      identificationNumber: "",
       gender: "male",
+      birthDate: new Date(),
+      email: "",
+      mobileNumber: "",
+      city: "",
+      address: "",
       studyBranch: "mathematics",
       modality: "online",
       status: "active",
-      birthDate: new Date(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
     },
   })
 
   const handleSubmit = (data: z.infer<typeof studentSchema>) => {
-    onSubmit(data)
+    if (student) {
+      onUpdate(data as Student)
+    } else {
+      onCreate(data as Student)
+    }
     onClose()
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>
-            {student ? t("form.edit.title") : t("form.create.title")}
+            {student ? t("form.editTitle") : t("form.createTitle")}
           </DialogTitle>
           <DialogDescription>
-            {student ? t("form.edit.description") : t("form.create.description")}
+            {student ? t("form.editDescription") : t("form.createDescription")}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -82,9 +93,9 @@ export function StudentFormModal({
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.firstName")}</FormLabel>
+                    <FormLabel>{t("details.name")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("form.firstNamePlaceholder")} {...field} />
+                      <Input placeholder={t("form.placeholders.firstName")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -95,9 +106,9 @@ export function StudentFormModal({
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.lastName")}</FormLabel>
+                    <FormLabel>{t("details.lastName")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("form.lastNamePlaceholder")} {...field} />
+                      <Input placeholder={t("form.placeholders.lastName")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -108,9 +119,9 @@ export function StudentFormModal({
                 name="identificationNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.identification")}</FormLabel>
+                    <FormLabel>{t("details.identification")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("form.identificationPlaceholder")} {...field} />
+                      <Input placeholder={t("form.placeholders.identification")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -121,11 +132,11 @@ export function StudentFormModal({
                 name="gender"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.gender")}</FormLabel>
+                    <FormLabel>{t("details.gender")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t("form.genderPlaceholder")} />
+                          <SelectValue placeholder={t("form.placeholders.gender")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -142,7 +153,7 @@ export function StudentFormModal({
                 name="birthDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>{t("form.birthDate")}</FormLabel>
+                    <FormLabel>{t("details.birthDate")}</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -156,7 +167,7 @@ export function StudentFormModal({
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>{t("form.birthDatePlaceholder")}</span>
+                              <span>{t("form.placeholders.birthDate")}</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -183,9 +194,9 @@ export function StudentFormModal({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.email")}</FormLabel>
+                    <FormLabel>{t("details.email")}</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder={t("form.emailPlaceholder")} {...field} />
+                      <Input type="email" placeholder={t("form.placeholders.email")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -196,9 +207,9 @@ export function StudentFormModal({
                 name="mobileNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.phone")}</FormLabel>
+                    <FormLabel>{t("details.phone")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("form.phonePlaceholder")} {...field} />
+                      <Input placeholder={t("form.placeholders.phone")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -209,9 +220,9 @@ export function StudentFormModal({
                 name="city"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.city")}</FormLabel>
+                    <FormLabel>{t("details.city")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("form.cityPlaceholder")} {...field} />
+                      <Input placeholder={t("form.placeholders.city")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -222,9 +233,9 @@ export function StudentFormModal({
                 name="address"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.address")}</FormLabel>
+                    <FormLabel>{t("details.address")}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t("form.addressPlaceholder")} {...field} />
+                      <Input placeholder={t("form.placeholders.address")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -235,19 +246,19 @@ export function StudentFormModal({
                 name="studyBranch"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.studyBranch")}</FormLabel>
+                    <FormLabel>{t("studyBranch")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t("form.studyBranchPlaceholder")} />
+                          <SelectValue placeholder={t("form.placeholders.studyBranch")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="mathematics">{t("studyBranch.mathematics")}</SelectItem>
-                        <SelectItem value="social_sciences">{t("studyBranch.social_sciences")}</SelectItem>
-                        <SelectItem value="engineering">{t("studyBranch.engineering")}</SelectItem>
-                        <SelectItem value="fashion">{t("studyBranch.fashion")}</SelectItem>
-                        <SelectItem value="audiovisual_arts">{t("studyBranch.audiovisual_arts")}</SelectItem>
+                        <SelectItem value="mathematics">{t("studyBranches.mathematics")}</SelectItem>
+                        <SelectItem value="social_sciences">{t("studyBranches.socialSciences")}</SelectItem>
+                        <SelectItem value="engineering">{t("studyBranches.engineering")}</SelectItem>
+                        <SelectItem value="fashion">{t("studyBranches.fashion")}</SelectItem>
+                        <SelectItem value="audiovisual_arts">{t("studyBranches.audiovisualArts")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -259,16 +270,16 @@ export function StudentFormModal({
                 name="modality"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.modality")}</FormLabel>
+                    <FormLabel>{t("modality")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t("form.modalityPlaceholder")} />
+                          <SelectValue placeholder={t("form.placeholders.modality")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="online">{t("modality.online")}</SelectItem>
-                        <SelectItem value="in_person">{t("modality.in_person")}</SelectItem>
+                        <SelectItem value="online">{t("modalities.online")}</SelectItem>
+                        <SelectItem value="in_person">{t("modalities.inPerson")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -280,16 +291,16 @@ export function StudentFormModal({
                 name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("form.status")}</FormLabel>
+                    <FormLabel>{t("status")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t("form.statusPlaceholder")} />
+                          <SelectValue placeholder={t("form.placeholders.status")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="active">{t("status.active")}</SelectItem>
-                        <SelectItem value="inactive">{t("status.inactive")}</SelectItem>
+                        <SelectItem value="active">{t("statuses.active")}</SelectItem>
+                        <SelectItem value="inactive">{t("statuses.inactive")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -299,7 +310,7 @@ export function StudentFormModal({
             </div>
             <DialogFooter>
               <Button type="submit">
-                {student ? t("form.edit.submit") : t("form.create.submit")}
+                {student ? t("form.saveChanges") : t("form.create")}
               </Button>
             </DialogFooter>
           </form>
