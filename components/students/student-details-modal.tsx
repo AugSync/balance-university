@@ -127,7 +127,7 @@ export function StudentDetailsModal({
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">{t("details.email")}:</span>
-                  <p>{student.email}</p>
+                  <p className="break-all">{student.email}</p>
                 </div>
               </div>
             </div>
