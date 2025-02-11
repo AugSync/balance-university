@@ -22,15 +22,15 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center space-x-2">
       <Input
         placeholder={t("filterStudents")}
-        value={(table.getColumn("firstName")?.getFilterValue() as string) ?? ""}
+        value={(table.getColumn("first_name")?.getFilterValue() as string) ?? ""}
         onChange={(event) =>
-          table.getColumn("firstName")?.setFilterValue(event.target.value)
+          table.getColumn("first_name")?.setFilterValue(event.target.value)
         }
         className="h-8 w-[150px] lg:w-[250px]"
       />
-      {table.getColumn("studyBranch") && (
+      {table.getColumn("study_branch") && (
         <DataTableFacetedFilter
-          column={table.getColumn("studyBranch")}
+          column={table.getColumn("study_branch")}
           title={t("studyBranch")}
           options={studyBranches}
         />

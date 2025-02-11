@@ -48,18 +48,18 @@ export const Columns = ({
       enableHiding: false,
     },
     {
-      accessorKey: "firstName",
+      accessorKey: "first_name",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title={t("details.name")} />
       ),
       cell: ({ row }) => {
-        const firstName = row.getValue("firstName") as string;
-        const lastName = row.getValue("lastName") as string;
+        const firstName = row.getValue("first_name") as string;
+        const lastName = row.getValue("last_name") as string;
         return <div>{`${firstName} ${lastName}`}</div>;
       },
     },
     {
-      accessorKey: "lastName",
+      accessorKey: "last_name",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title={t("columns.lastName")} />
       ),
@@ -72,13 +72,13 @@ export const Columns = ({
               onDetails(row.original)
             }}
           >
-            {row.getValue("lastName")}
+            {row.getValue("last_name")}
           </div>
         )
       }
     },
     {
-      accessorKey: "identificationNumber",
+      accessorKey: "identification_number",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title={t("columns.identification")} />
       ),
@@ -91,7 +91,7 @@ export const Columns = ({
               onDetails(row.original)
             }}
           >
-            {row.getValue("identificationNumber")}
+            {row.getValue("identification_number")}
           </div>
         )
       }
@@ -117,12 +117,12 @@ export const Columns = ({
       },
     },
     {
-      accessorKey: "birthDate",
+      accessorKey: "birth_date",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title={t("columns.birthDate")} />
       ),
       cell: ({ row }) => {
-        const date = row.getValue("birthDate") as Date;
+        const date = row.getValue("birth_date") as string;
         return (
           <div 
             className="cursor-pointer hover:text-primary"
@@ -131,7 +131,7 @@ export const Columns = ({
               onDetails(row.original)
             }}
           >
-            {format(date, "PPP")}
+            {format(new Date(date), "PPP")}
           </div>
         );
       },
@@ -175,7 +175,7 @@ export const Columns = ({
       }
     },
     {
-      accessorKey: "mobileNumber",
+      accessorKey: "mobile_number",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title={t("columns.phone")} />
       ),
@@ -188,18 +188,18 @@ export const Columns = ({
               onDetails(row.original)
             }}
           >
-            {row.getValue("mobileNumber")}
+            {row.getValue("mobile_number")}
           </div>
         );
       }
     },
     {
-      accessorKey: "studyBranch",
+      accessorKey: "study_branch",
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title={t("columns.studyBranch")} />
       ),
       cell: ({ row }) => {
-        const studyBranch = row.getValue("studyBranch") as string;
+        const studyBranch = row.getValue("study_branch") as string;
         return (
           <div 
             className="capitalize cursor-pointer hover:text-primary"

@@ -64,3 +64,69 @@ export async function deleteStudent(id: string) {
   if (error) throw error;
   return true;
 }
+
+export type GetStudentsParams = {
+  page?: number;
+  limit?: number;
+  sortBy?: 
+    | 'id'
+    | 'first_name'
+    | 'last_name'
+    | 'identification_number'
+    | 'gender'
+    | 'birth_date'
+    | 'city'
+    | 'address'
+    | 'mobile_number'
+    | 'email'
+    | 'study_branch'
+    | 'modality'
+    | 'status'
+    | 'created_at'
+    | 'updated_at';
+  sortOrder?: 'asc' | 'desc';
+  search?: string;
+};
+
+export async function getPaginatedStudents({
+  page = 1,
+  limit = 10,
+  sortBy = 'created_at',
+  sortOrder = 'desc',
+  search = '',
+}: GetStudentsParams = {}) {
+  const offset = (page - 1) * limit;
+
+  console.log("Database query params:", { page, limit, sortBy, sortOrder, search, offset });
+
+  let query = supabase
+    .from(TABLE_NAME)
+    .select('*', { count: 'exact' });
+
+  if (search) {
+    query = query.or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%`);
+  }
+
+  const { data, error, count } = await query
+    .order(sortBy, { ascending: sortOrder === 'asc' })
+    .range(offset, offset + limit - 1);
+
+  if (error) {
+    console.error("Database error:", error);
+    throw error;
+  }
+
+  const result = {
+    data: data as Student[],
+    metadata: {
+      total: count || 0,
+      page,
+      limit,
+      totalPages: count ? Math.ceil(count / limit) : 0,
+    },
+  };
+
+  console.log("Database result metadata:", result.metadata);
+
+  return result;
+}
