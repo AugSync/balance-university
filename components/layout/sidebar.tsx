@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { LayoutDashboard, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { SparklesText } from "@/components/magicui/sparkles-text";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -13,6 +13,8 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
   const t = useTranslations("Navigation");
+  const homeT = useTranslations("HomePage");
+  const locale = useLocale();
 
   const routes = [
     {
@@ -31,12 +33,25 @@ export function Sidebar({ className }: SidebarProps) {
     <div className={cn("flex flex-col h-full", className)}>
       <div className="h-14 flex items-center px-6 border-b">
         <div className="flex items-center gap-1.5">
-          <SparklesText 
-            text="Balance" 
-            className="text-lg font-semibold"
-            sparklesCount={4}
-          />
-          <span className="text-lg font-semibold">Academy</span>
+          {locale === "es" ? (
+            <>
+              <span className="text-lg font-semibold">{homeT("university")}</span>
+              <SparklesText 
+                text="Balance" 
+                className="text-lg font-semibold"
+                sparklesCount={4}
+              />
+            </>
+          ) : (
+            <>
+              <SparklesText 
+                text="Balance" 
+                className="text-lg font-semibold"
+                sparklesCount={4}
+              />
+              <span className="text-lg font-semibold">University</span>
+            </>
+          )}
         </div>
       </div>
       <ScrollArea className="flex-1 py-4">
