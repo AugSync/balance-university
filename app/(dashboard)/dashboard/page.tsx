@@ -10,18 +10,10 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RecentStudents } from "@/components/dashboard/recent-students";
 import { Overview } from "@/components/dashboard/overview";
-import { UserIcon, UsersIcon, LogOut } from "lucide-react";
+import { UserIcon, UsersIcon } from "lucide-react";
 import { CalendarDateRangePicker } from "@/components/dashboard/date-range-picker";
 import { useTranslations } from "next-intl";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export default function DashboardPage() {
   const t = useTranslations("Dashboard");

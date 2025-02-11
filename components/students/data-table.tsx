@@ -3,7 +3,6 @@
 import * as React from "react";
 import {
   ColumnDef,
-  ColumnFiltersState,
   SortingState,
   VisibilityState,
   flexRender,
@@ -34,6 +33,7 @@ import { useTranslations } from "next-intl";
 import { Student } from "@/types/student";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { useDebounce } from "../../hooks/use-debounce";
 
 interface DataTableProps {
   columns: ColumnDef<Student>[];
@@ -59,18 +59,23 @@ export function DataTable({ columns, data, onBulkDelete }: DataTableProps) {
       mobile_number: false,
       modality: false,
     });
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [isBulkDeleteModalOpen, setIsBulkDeleteModalOpen] =
     React.useState(false);
+  const [searchValue, setSearchValue] = React.useState("");
+  const [filters, setFilters] = React.useState({
+    study_branch: [] as string[],
+    modality: [] as string[],
+    status: [] as string[],
+  });
   const t = useTranslations("students");
 
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 10,
   });
+
+  const debouncedSearch = useDebounce(searchValue, 500);
 
   const {
     data: paginatedData,
@@ -81,8 +86,8 @@ export function DataTable({ columns, data, onBulkDelete }: DataTableProps) {
     limit: pagination.pageSize,
     sortBy: sorting[0]?.id,
     sortOrder: sorting[0]?.desc ? "desc" : "asc",
-    search: columnFilters.find((filter) => filter.id === "global")
-      ?.value as string,
+    search: debouncedSearch,
+    filters,
   });
 
   const table = useReactTable({
@@ -93,7 +98,6 @@ export function DataTable({ columns, data, onBulkDelete }: DataTableProps) {
       sorting,
       columnVisibility,
       rowSelection,
-      columnFilters,
       pagination,
     },
     onPaginationChange: setPagination,
@@ -101,7 +105,6 @@ export function DataTable({ columns, data, onBulkDelete }: DataTableProps) {
     manualPagination: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
     manualFiltering: true,
@@ -120,11 +123,29 @@ export function DataTable({ columns, data, onBulkDelete }: DataTableProps) {
     setRowSelection({});
   };
 
+  const handleFiltersChange = (newFilters: {
+    study_branch?: string[];
+    modality?: string[];
+    status?: string[];
+  }) => {
+    setFilters({
+      study_branch: newFilters.study_branch || [],
+      modality: newFilters.modality || [],
+      status: newFilters.status || [],
+    });
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2">
         <div className="flex-1">
-          <DataTableToolbar table={table} />
+          <DataTableToolbar 
+            table={table} 
+            searchValue={searchValue}
+            onSearchChange={setSearchValue}
+            filters={filters}
+            onFiltersChange={handleFiltersChange}
+          />
         </div>
         <div className="flex items-center gap-2">
           {selectedRows.length > 0 && (

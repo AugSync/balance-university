@@ -86,6 +86,11 @@ export type GetStudentsParams = {
     | 'updated_at';
   sortOrder?: 'asc' | 'desc';
   search?: string;
+  filters?: {
+    study_branch?: string[];
+    modality?: string[];
+    status?: string[];
+  };
 };
 
 export async function getPaginatedStudents({
@@ -94,17 +99,32 @@ export async function getPaginatedStudents({
   sortBy = 'created_at',
   sortOrder = 'desc',
   search = '',
+  filters = {},
 }: GetStudentsParams = {}) {
   const offset = (page - 1) * limit;
 
-  console.log("Database query params:", { page, limit, sortBy, sortOrder, search, offset });
+  console.log("Database query params:", { page, limit, sortBy, sortOrder, search, filters, offset });
 
   let query = supabase
     .from(TABLE_NAME)
     .select('*', { count: 'exact' });
 
+  // Apply search filter
   if (search) {
-    query = query.or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%`);
+    query = query.or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,identification_number.ilike.%${search}%`);
+  }
+
+  // Apply column filters
+  if (filters.study_branch?.length) {
+    query = query.in('study_branch', filters.study_branch);
+  }
+
+  if (filters.modality?.length) {
+    query = query.in('modality', filters.modality);
+  }
+
+  if (filters.status?.length) {
+    query = query.in('status', filters.status);
   }
 
   const { data, error, count } = await query

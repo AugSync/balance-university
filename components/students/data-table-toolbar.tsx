@@ -10,49 +10,78 @@ import { useTranslations } from "next-intl";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  searchValue: string;
+  onSearchChange: (value: string) => void;
+  filters: {
+    study_branch?: string[];
+    modality?: string[];
+    status?: string[];
+  };
+  onFiltersChange: (filters: {
+    study_branch?: string[];
+    modality?: string[];
+    status?: string[];
+  }) => void;
 }
 
 export function DataTableToolbar<TData>({
-  table,
+  searchValue,
+  onSearchChange,
+  filters,
+  onFiltersChange,
 }: DataTableToolbarProps<TData>) {
   const t = useTranslations("students");
-  const isFiltered = table.getState().columnFilters.length > 0;
+  const hasFilters = Object.values(filters).some(
+    (filter) => filter && filter.length > 0
+  );
+
+  const handleFilterChange = (
+    key: keyof typeof filters,
+    value: string[] | undefined
+  ) => {
+    onFiltersChange({
+      ...filters,
+      [key]: value,
+    });
+  };
 
   return (
     <div className="flex items-center space-x-2">
       <Input
         placeholder={t("filterStudents")}
-        value={(table.getColumn("first_name")?.getFilterValue() as string) ?? ""}
-        onChange={(event) =>
-          table.getColumn("first_name")?.setFilterValue(event.target.value)
-        }
+        value={searchValue}
+        onChange={(event) => onSearchChange(event.target.value)}
         className="h-8 w-[150px] lg:w-[250px]"
       />
-      {table.getColumn("study_branch") && (
-        <DataTableFacetedFilter
-          column={table.getColumn("study_branch")}
-          title={t("studyBranch")}
-          options={studyBranches}
-        />
-      )}
-      {table.getColumn("modality") && (
-        <DataTableFacetedFilter
-          column={table.getColumn("modality")}
-          title={t("modality")}
-          options={modalities}
-        />
-      )}
-      {table.getColumn("status") && (
-        <DataTableFacetedFilter
-          column={table.getColumn("status")}
-          title={t("status")}
-          options={statuses}
-        />
-      )}
-      {isFiltered && (
+      <DataTableFacetedFilter
+        value={filters.study_branch}
+        onChange={(value) => handleFilterChange("study_branch", value)}
+        title={t("studyBranch")}
+        options={studyBranches}
+      />
+      <DataTableFacetedFilter
+        value={filters.modality}
+        onChange={(value) => handleFilterChange("modality", value)}
+        title={t("modality")}
+        options={modalities}
+      />
+      <DataTableFacetedFilter
+        value={filters.status}
+        onChange={(value) => handleFilterChange("status", value)}
+        title={t("status")}
+        options={statuses}
+      />
+      {(hasFilters || searchValue) && (
         <Button
           variant="ghost"
-          onClick={() => table.resetColumnFilters()}
+          onClick={() => {
+            onFiltersChange({
+              study_branch: [],
+              modality: [],
+              status: [],
+            });
+            onSearchChange("");
+          }}
           className="h-8 px-2 lg:px-3"
         >
           Reset
