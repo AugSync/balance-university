@@ -49,7 +49,7 @@ export default function DashboardPage() {
             <DropdownMenu>
               <DropdownMenuTrigger className="cursor-pointer">
                 <Avatar>
-                  <AvatarImage src="/avatars/admin.png" alt={t("admin")} />
+                  <AvatarImage src="/avatars/admin.jpg" alt={t("admin")} />
                   <AvatarFallback>AD</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
