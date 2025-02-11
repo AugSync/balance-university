@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "./form-input";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface LoginFormProps {
   onBack?: () => void;
@@ -37,10 +38,22 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
 
   const onSubmit = async (values: LoginFormValues) => {
     try {
-      // Handle form submission
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al iniciar sesión');
+      }
+
       await router.push("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
+      toast.error(error instanceof Error ? error.message : 'Error al iniciar sesión');
     }
   };
 

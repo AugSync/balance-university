@@ -24,9 +24,20 @@ export default function DashboardLayout({
   const t = useTranslations("Dashboard");
   const router = useRouter();
 
-  const handleLogout = () => {
-    // Add your logout logic here
-    router.push("/");
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al cerrar sesión');
+      }
+
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
