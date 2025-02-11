@@ -41,8 +41,8 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
-      <div className="mx-auto w-full max-w-7xl">
+    <div className="flex-1 flex flex-col h-[calc(100vh-2rem)] p-4 md:p-8 pt-6">
+      <div className="mx-auto w-full max-w-7xl flex-1">
         <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col space-y-4 md:space-y-0">
             <div className="flex items-center justify-between md:justify-start">
@@ -86,8 +86,8 @@ export default function DashboardPage() {
             </DropdownMenu>
           </div>
         </div>
-        <Tabs defaultValue="mathematics" className="space-y-4">
-          <ScrollArea className="w-full whitespace-nowrap mt-4">
+        <Tabs defaultValue="mathematics" className="flex-1 flex flex-col mt-4">
+          <ScrollArea className="w-full whitespace-nowrap">
             <div className="max-w-full">
               <TabsList className="inline-flex w-full md:w-auto min-w-full md:min-w-[600px]">
                 {careers.map((career) => (
@@ -104,75 +104,49 @@ export default function DashboardPage() {
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
           {careers.map((career) => (
-            <TabsContent key={career.id} value={career.id} className="space-y-4">
-              <div className="grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-xs md:text-sm font-medium">
-                      {t("stats.totalStudents")}
-                    </CardTitle>
-                    <UserIcon className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-xl md:text-2xl font-bold">2,350</div>
-                    <p className="text-[10px] md:text-xs text-muted-foreground">
-                      {t("stats.totalStudentsChange")}
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-xs md:text-sm font-medium">
-                      {t("stats.activeStudents")}
-                    </CardTitle>
-                    <UsersIcon className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-xl md:text-2xl font-bold">573</div>
-                    <p className="text-[10px] md:text-xs text-muted-foreground">
-                      {t("stats.activeStudentsChange")}
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-xs md:text-sm font-medium">
-                      {t("stats.onlineMode")}
-                    </CardTitle>
-                    <GlobeIcon className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-xl md:text-2xl font-bold">1,234</div>
-                    <p className="text-[10px] md:text-xs text-muted-foreground">
-                      {t("stats.onlineModeChange")}
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-xs md:text-sm font-medium">
-                      {t("stats.inPersonMode")}
-                    </CardTitle>
-                    <SchoolIcon className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-xl md:text-2xl font-bold">1,116</div>
-                    <p className="text-[10px] md:text-xs text-muted-foreground">
-                      {t("stats.inPersonModeChange")}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-1 md:col-span-4">
-                  <CardHeader>
-                    <CardTitle>{t("overview")}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pl-2">
-                    <Overview />
-                  </CardContent>
-                </Card>
-                <Card className="col-span-1 md:col-span-3">
+            <TabsContent key={career.id} value={career.id} className="flex-1 space-y-4 mt-4">
+              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7 h-full">
+                <div className="col-span-1 md:col-span-4 flex flex-col space-y-4">
+                  <div className="grid gap-4 grid-cols-2">
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-xs md:text-sm font-medium">
+                          {t("stats.totalStudents")}
+                        </CardTitle>
+                        <UserIcon className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-xl md:text-2xl font-bold">2,350</div>
+                        <p className="text-[10px] md:text-xs text-muted-foreground">
+                          {t("stats.totalStudentsChange")}
+                        </p>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-xs md:text-sm font-medium">
+                          {t("stats.activeStudents")}
+                        </CardTitle>
+                        <UsersIcon className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-xl md:text-2xl font-bold">573</div>
+                        <p className="text-[10px] md:text-xs text-muted-foreground">
+                          {t("stats.activeStudentsChange")}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <Card className="flex-1">
+                    <CardHeader>
+                      <CardTitle>{t("overview")}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="pl-2">
+                      <Overview />
+                    </CardContent>
+                  </Card>
+                </div>
+                <Card className="col-span-1 md:col-span-3 h-full">
                   <CardHeader>
                     <CardTitle>{t("recentStudents.title")}</CardTitle>
                     <CardDescription>
