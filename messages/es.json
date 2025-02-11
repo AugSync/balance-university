@@ -80,6 +80,7 @@
     "modality": "Modalidad",
     "modalities": {
       "online": "En línea",
+      "inPerson": "Presencial",
       "in_person": "Presencial"
     },
     "status": "Estado",

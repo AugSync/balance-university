@@ -39,6 +39,7 @@ import { Spinner } from "@/components/ui/spinner";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { es } from "date-fns/locale";
+import { useInvalidateDashboard } from "@/hooks/use-invalidate-dashboard";
 
 interface StudentFormModalProps {
   student?: Student;
@@ -52,7 +53,7 @@ export function StudentFormModal({
   onClose,
 }: StudentFormModalProps) {
   const t = useTranslations("students");
-  const queryClient = useQueryClient();
+  const { invalidateAll } = useInvalidateDashboard();
 
   const defaultValues = React.useMemo(() => ({
     first_name: "",
@@ -114,8 +115,8 @@ export function StudentFormModal({
       }
       return response.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["students"] });
+    onSuccess: async (data) => {
+      await invalidateAll(data.study_branch);
       toast.success(t("notifications.createSuccess"));
       form.reset(defaultValues);
       onClose();
@@ -138,8 +139,8 @@ export function StudentFormModal({
       }
       return response.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["students"] });
+    onSuccess: async (data) => {
+      await invalidateAll(data.study_branch);
       toast.success(t("notifications.updateSuccess"));
       form.reset(defaultValues);
       onClose();

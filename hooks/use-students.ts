@@ -4,6 +4,7 @@ import { Student } from "@/types/student";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { useInvalidateDashboard } from "@/hooks/use-invalidate-dashboard";
 
 export function useStudents(params: FetchStudentsParams = {}) {
   const searchParams = new URLSearchParams();
@@ -41,7 +42,7 @@ export function useStudents(params: FetchStudentsParams = {}) {
 export function useStudentActions() {
   const t = useTranslations("students");
   const [isLoading, setIsLoading] = useState(false);
-  const queryClient = useQueryClient();
+  const { invalidateAll } = useInvalidateDashboard();
 
   const deleteStudent = async (id: string) => {
     try {
@@ -54,7 +55,7 @@ export function useStudentActions() {
         throw new Error("Failed to delete student");
       }
 
-      await queryClient.invalidateQueries({ queryKey: ["students"] });
+      await invalidateAll();
       toast.success(t("notifications.deleteSuccess"));
       return true;
     } catch (error) {
@@ -77,7 +78,7 @@ export function useStudentActions() {
         throw new Error("Failed to delete students");
       }
 
-      await queryClient.invalidateQueries({ queryKey: ["students"] });
+      await invalidateAll();
       toast.success(t("notifications.bulkDeleteSuccess", { count: ids.length }));
       return true;
     } catch (error) {
