@@ -30,13 +30,13 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
           <Label htmlFor="email" className="text-left block">
             {t("email")}
           </Label>
-          <Input id="email" type="email" required />
+          <Input id="email" type="email" value="admin@balance.com" required />
         </div>
         <div className="space-y-2">
           <Label htmlFor="password" className="text-left block">
             {t("password")}
           </Label>
-          <Input id="password" type="password" required />
+          <Input id="password" type="password" value="password" required />
         </div>
         <Button className="w-full" type="submit">
           {t("login")}
