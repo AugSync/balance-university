@@ -105,8 +105,8 @@ export default function DashboardPage() {
           </ScrollArea>
           {careers.map((career) => (
             <TabsContent key={career.id} value={career.id} className="flex-1 space-y-4 mt-4">
-              <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7 h-full">
-                <div className="col-span-1 md:col-span-4 flex flex-col space-y-4">
+              <div className="grid gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-7 h-full">
+                <div className="col-span-1 lg:col-span-4 flex flex-col space-y-4">
                   <div className="grid gap-4 grid-cols-2">
                     <Card>
                       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -146,7 +146,7 @@ export default function DashboardPage() {
                     </CardContent>
                   </Card>
                 </div>
-                <Card className="col-span-1 md:col-span-3 h-full">
+                <Card className="col-span-1 lg:col-span-3 h-full">
                   <CardHeader>
                     <CardTitle>{t("recentStudents.title")}</CardTitle>
                     <CardDescription>
