@@ -20,16 +20,6 @@ export default function StudentsPage() {
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleCreateStudent = (data: Student) => {
-    console.log('Crear estudiante:', data);
-    toast.success(t("notifications.createSuccess"));
-  };
-
-  const handleUpdateStudent = (data: Student) => {
-    console.log('Actualizar estudiante:', data);
-    toast.success(t("notifications.updateSuccess"));
-  };
-
   const handleDeleteStudent = () => {
     if (!selectedStudent) return;
     console.log('Eliminar estudiante:', selectedStudent.id);
@@ -47,6 +37,7 @@ export default function StudentsPage() {
   };
 
   const openEditModal = (student: Student) => {
+    console.log("Opening edit modal with student:", student); // Debug log
     setSelectedStudent(student);
     setIsFormModalOpen(true);
   };
@@ -96,8 +87,6 @@ export default function StudentsPage() {
           setIsFormModalOpen(false);
           setSelectedStudent(undefined);
         }}
-        onCreate={handleCreateStudent}
-        onUpdate={handleUpdateStudent}
       />
 
       <StudentDeleteModal

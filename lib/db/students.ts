@@ -25,7 +25,7 @@ export async function getStudentById(id: string) {
 }
 
 export async function createStudent(
-  student: Omit<Student, "id" | "createdAt" | "updatedAt">
+  student: Omit<Student, "id" | "created_at" | "updated_at">
 ) {
   const { data, error } = await supabase
     .from(TABLE_NAME)

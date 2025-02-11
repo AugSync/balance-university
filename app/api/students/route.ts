@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPaginatedStudents } from "@/lib/db/students";
+import { getPaginatedStudents, createStudent, updateStudent } from "@/lib/db/students";
 import { z } from "zod";
+import { studentSchema } from "@/types/student";
 
 const querySchema = z.object({
   page: z.coerce.number().min(1).default(1),
@@ -75,6 +76,61 @@ export async function GET(request: NextRequest) {
     }
 
     console.error("Error fetching students:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const validatedData = studentSchema.omit({ id: true, created_at: true, updated_at: true }).parse(body);
+    const result = await createStudent(validatedData);
+    return NextResponse.json(result);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: "Invalid student data", details: error.errors },
+        { status: 400 }
+      );
+    }
+
+    console.error("Error creating student:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Student ID is required" },
+        { status: 400 }
+      );
+    }
+
+    const body = await request.json();
+    const validatedData = studentSchema.omit({ id: true, created_at: true, updated_at: true }).partial().parse(body);
+
+    const result = await updateStudent(id, validatedData);
+    return NextResponse.json(result);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: "Invalid student data", details: error.errors },
+        { status: 400 }
+      );
+    }
+
+    console.error("Error updating student:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

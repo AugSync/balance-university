@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { ChevronLeft } from "lucide-react";
-import { useFormik } from "formik";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { toFormikValidationSchema } from "zod-formik-adapter";
+import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "./form-input";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { useRouter } from "next/navigation";
@@ -29,32 +29,22 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
     password: "password",
   };
 
-  const formik = useFormik({
-    initialValues: defaultValues,
-    validationSchema: toFormikValidationSchema(loginSchema),
-    validateOnMount: false,
-    validateOnChange: true,
-    validateOnBlur: true,
-    onSubmit: async (values) => {
-      try {
-        // Handle form submission
-        await router.push("/dashboard");
-      } catch (error) {
-        console.error("Login error:", error);
-      }
-    },
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues,
+    mode: "onChange",
   });
 
-  const shouldShowError = (fieldName: keyof LoginFormValues) => {
-    return Boolean(formik.touched[fieldName] && formik.errors[fieldName]);
+  const onSubmit = async (values: LoginFormValues) => {
+    try {
+      // Handle form submission
+      await router.push("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
-  const getErrorMessage = (fieldName: keyof LoginFormValues) => {
-    if (shouldShowError(fieldName)) {
-      return formik.errors[fieldName];
-    }
-    return undefined;
-  };
+  const values = form.watch();
 
   return (
     <div className="w-full max-w-sm space-y-4">
@@ -69,30 +59,32 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
           <ChevronLeft className="h-5 w-5" />
         </Button>
       )}
-      <form onSubmit={formik.handleSubmit} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormInput
           id="email"
           type="email"
           label={t("email")}
-          error={getErrorMessage("email")}
-          touched={formik.touched.email}
-          {...formik.getFieldProps("email")}
+          error={form.formState.errors.email?.message}
+          touched={form.formState.touchedFields.email}
+          value={values.email}
+          {...form.register("email")}
         />
         <FormInput
           id="password"
           type="password"
           label={t("password")}
-          error={getErrorMessage("password")}
-          touched={formik.touched.password}
-          {...formik.getFieldProps("password")}
+          error={form.formState.errors.password?.message}
+          touched={form.formState.touchedFields.password}
+          value={values.password}
+          {...form.register("password")}
         />
         <div className="mt-8" />
         <InteractiveHoverButton 
           className="w-full bg-gray-300" 
           type="submit"
-          disabled={formik.isSubmitting || !formik.isValid}
+          disabled={form.formState.isSubmitting || !form.formState.isValid}
         >
-          {formik.isSubmitting ? t("submitting") : t("login")}
+          {form.formState.isSubmitting ? t("submitting") : t("login")}
         </InteractiveHoverButton>
       </form>
     </div>
