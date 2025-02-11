@@ -9,5 +9,32 @@
     "submitting": "Enviando...",
     "emailError": "Por favor ingresa un correo electrónico válido",
     "passwordError": "La contraseña debe tener al menos 6 caracteres"
+  },
+  "Dashboard": {
+    "title": "Panel de Control",
+    "admin": "Administrador",
+    "logout": "Cerrar sesión",
+    "careers": {
+      "mathematics": "Matemáticas",
+      "socialSciences": "Ciencias Sociales",
+      "engineering": "Ingeniería",
+      "fashion": "Moda",
+      "audiovisualArts": "Artes Audiovisuales"
+    },
+    "stats": {
+      "totalStudents": "Total de Estudiantes",
+      "totalStudentsChange": "+20.1% desde el mes pasado",
+      "activeStudents": "Estudiantes Activos",
+      "activeStudentsChange": "+180.1% desde el mes pasado",
+      "onlineMode": "Modo Online",
+      "onlineModeChange": "+19% desde el mes pasado",
+      "inPersonMode": "Modo Presencial",
+      "inPersonModeChange": "+201 desde la última hora"
+    },
+    "overview": "Resumen",
+    "recentStudents": {
+      "title": "Estudiantes Recientes",
+      "description": "Tienes 265 estudiantes."
+    }
   }
 } 

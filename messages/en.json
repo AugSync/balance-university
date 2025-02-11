@@ -5,9 +5,36 @@
     "university": "University",
     "email": "Email",
     "password": "Password",
-    "back": "Go back",
+    "back": "Back",
     "submitting": "Submitting...",
     "emailError": "Please enter a valid email address",
-    "passwordError": "Password must be at least 6 characters long"
+    "passwordError": "Password must be at least 6 characters"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "admin": "Administrator",
+    "logout": "Logout",
+    "overview": "Overview",
+    "recentStudents": {
+      "title": "Recent Students",
+      "description": "You have 265 students."
+    },
+    "stats": {
+      "totalStudents": "Total Students",
+      "totalStudentsChange": "+20.1% from last month",
+      "activeStudents": "Active Students",
+      "activeStudentsChange": "+180.1% from last month",
+      "onlineMode": "Online Mode",
+      "onlineModeChange": "+19% from last month",
+      "inPersonMode": "In-Person Mode",
+      "inPersonModeChange": "+201 since last hour"
+    },
+    "careers": {
+      "mathematics": "Mathematics",
+      "socialSciences": "Social Sciences",
+      "engineering": "Engineering",
+      "fashion": "Fashion",
+      "audiovisualArts": "Audiovisual Arts"
+    }
   }
 }
