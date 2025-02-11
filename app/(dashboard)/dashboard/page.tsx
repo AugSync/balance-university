@@ -41,8 +41,8 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-[calc(100vh-2rem)] p-4 md:p-8 pt-6">
-      <div className="mx-auto w-full max-w-7xl flex-1">
+    <div className="flex-1 flex flex-col min-h-[calc(100vh-2rem)] p-4 md:p-8 pt-6 w-full">
+      <div className="w-full flex-1">
         <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col space-y-4 md:space-y-0">
             <div className="flex items-center justify-between md:justify-start">
@@ -56,26 +56,23 @@ export default function DashboardPage() {
             <CalendarDateRangePicker />
           </div>
         </div>
-        <Tabs defaultValue="mathematics" className="flex-1 flex flex-col mt-4">
-          <ScrollArea className="w-full whitespace-nowrap">
-            <div className="max-w-full">
-              <TabsList className="inline-flex w-full md:w-auto min-w-full md:min-w-[600px]">
-                {careers.map((career) => (
-                  <TabsTrigger 
-                    key={career.id} 
-                    value={career.id}
-                    className="flex-1 text-xs md:text-sm px-2 md:px-4"
-                  >
-                    {career.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+        <Tabs defaultValue="mathematics" className="flex-1 flex flex-col mt-4 w-full">
+          <div className="w-full overflow-x-auto md:overflow-x-visible">
+            <TabsList className="w-full md:w-auto min-w-max md:min-w-0 inline-flex">
+              {careers.map((career) => (
+                <TabsTrigger 
+                  key={career.id} 
+                  value={career.id}
+                  className="flex-1 text-xs md:text-sm px-2 md:px-4"
+                >
+                  {career.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
           {careers.map((career) => (
             <TabsContent key={career.id} value={career.id} className="flex-1 space-y-4 my-4">
-              <div className="grid gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-7 h-full">
+              <div className="grid gap-4 grid-cols-1 md:grid-cols-1 lg:grid-cols-7 h-full w-full">
                 <div className="col-span-1 lg:col-span-4 flex flex-col space-y-4">
                   <div className="grid gap-4 grid-cols-2">
                     <Card>
