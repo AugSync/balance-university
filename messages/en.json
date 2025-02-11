@@ -5,6 +5,9 @@
     "university": "University",
     "email": "Email",
     "password": "Password",
-    "back": "Go back"
+    "back": "Go back",
+    "submitting": "Submitting...",
+    "emailError": "Please enter a valid email address",
+    "passwordError": "Password must be at least 6 characters long"
   }
 }

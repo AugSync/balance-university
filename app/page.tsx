@@ -16,17 +16,19 @@ export default function HomePage() {
   const locale = useLocale();
   const [showLogin, setShowLogin] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
-    const checkMobile = () => {
+    const checkSize = () => {
       setIsMobile(window.innerWidth < 768);
+      setWindowWidth(window.innerWidth);
     };
     
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+    checkSize();
+    window.addEventListener("resize", checkSize);
     
-    return () => window.removeEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkSize);
   }, []);
 
   const handleLoginClick = () => {
@@ -54,12 +56,18 @@ export default function HomePage() {
         <motion.div
           className="flex flex-col items-center justify-center gap-8 text-center"
           animate={{
-            x: showLogin ? "-60%" : "0%",
+            x: showLogin 
+              ? isMobile 
+                ? "0%" 
+                : windowWidth < 1150
+                  ? "-50%"
+                  : "-60%"
+              : "0%",
             opacity: 1,
           }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
-          <div className="relative w-full max-w-[500px] transition-all duration-300">
+          <div className="relative w-full max-w-[300px] xl:max-w-[500px] transition-all duration-300">
             <Image
               src="/university.svg"
               alt="Universidad"
@@ -76,16 +84,16 @@ export default function HomePage() {
             )}
             <SparklesText
               text="Balance"
-              className="text-3xl sm:text-4xl md:text-5xl"
+              className="text-3xl xl:text-5xl"
               colors={{ first: "#4F46E5", second: "#EC4899" }}
               sparklesCount={5}
             />
             {locale === "en" && (
-              <span className="text-foreground">{t("university")}</span>
+              <span className="text-foreground text-3xl xl:text-5xl">{t("university")}</span>
             )}
           </div>
 
-          <p className="max-w-[600px] text-lg text-muted-foreground">
+          <p className="max-w-[300px] xl:max-w-[600px] text-sm xl:text-lg text-muted-foreground">
             {t("description")}
           </p>
 

@@ -5,6 +5,9 @@
     "university": "Universidad",
     "email": "Correo electrónico",
     "password": "Contraseña",
-    "back": "Volver"
+    "back": "Volver",
+    "submitting": "Enviando...",
+    "emailError": "Por favor ingresa un correo electrónico válido",
+    "passwordError": "La contraseña debe tener al menos 6 caracteres"
   }
 } 

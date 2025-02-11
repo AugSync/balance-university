@@ -1,16 +1,39 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useTranslations } from "next-intl";
 import { ChevronLeft } from "lucide-react";
+import { useFormik } from "formik";
+import { z } from "zod";
+import { toFormikValidationSchema } from "zod-formik-adapter";
+import FormInput from "./form-input";
 
 interface LoginFormProps {
   onBack?: () => void;
   showBackButton?: boolean;
 }
 
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
+const defaultValues: LoginFormValues = {
+  email: "admin@balance.com",
+  password: "password",
+};
+
 export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
   const t = useTranslations("HomePage");
+
+  const formik = useFormik({
+    initialValues: defaultValues,
+    validationSchema: toFormikValidationSchema(loginSchema),
+    onSubmit: async (values) => {
+      // Handle form submission
+      console.log(values);
+    },
+  });
 
   return (
     <div className="w-full max-w-sm space-y-4">
@@ -25,21 +48,29 @@ export function LoginForm({ onBack, showBackButton = true }: LoginFormProps) {
           <ChevronLeft className="h-5 w-5" />
         </Button>
       )}
-      <form className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email" className="text-left block">
-            {t("email")}
-          </Label>
-          <Input id="email" type="email" value="admin@balance.com" required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password" className="text-left block">
-            {t("password")}
-          </Label>
-          <Input id="password" type="password" value="password" required />
-        </div>
-        <Button className="w-full" type="submit">
-          {t("login")}
+      <form onSubmit={formik.handleSubmit} className="space-y-4">
+        <FormInput
+          id="email"
+          type="email"
+          label={t("email")}
+          error={formik.touched.email ? t("emailError") : undefined}
+          touched={formik.touched.email}
+          {...formik.getFieldProps("email")}
+        />
+        <FormInput
+          id="password"
+          type="password"
+          label={t("password")}
+          error={formik.touched.password ? t("passwordError") : undefined}
+          touched={formik.touched.password}
+          {...formik.getFieldProps("password")}
+        />
+        <Button 
+          className="w-full" 
+          type="submit"
+          disabled={formik.isSubmitting}
+        >
+          {formik.isSubmitting ? t("submitting") : t("login")}
         </Button>
       </form>
     </div>
