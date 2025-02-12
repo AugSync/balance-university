@@ -4,9 +4,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { useRecentStudents } from "@/hooks/use-recent-students"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useTranslations } from "next-intl"
 
 export function RecentStudents() {
   const { data, isLoading, error } = useRecentStudents()
+  const t = useTranslations("students")
 
   if (isLoading) {
     return (
@@ -64,7 +66,7 @@ export function RecentStudents() {
               variant={student.status === "active" ? "default" : "secondary"}
               className="capitalize text-xs whitespace-nowrap"
             >
-              {student.status}
+              {t(`statuses.${student.status}`)}
             </Badge>
           </div>
         </div>
